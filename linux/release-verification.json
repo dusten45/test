@@ -1,27 +1,27 @@
 {
+  "release_url": "https://github.com/dusten45/test/releases/tag/paladog-linux-preview-2",
   "downloads": [
     {
       "name": "paladog-linux-x86_64.tar.gz",
       "status": 200,
       "download_host": "release-assets.githubusercontent.com",
-      "bytes": 130132270,
-      "sha256": "a2799ddf688c9aad633679c561580bcbac338287263fa71442691083e9655e77"
+      "bytes": 132405618,
+      "sha256": "90d2f68232a6503972170b33ea700192a5f60b8b2eab279bd739c4dcbca49e35"
     },
     {
       "name": "paladog-linux-x86_64-sources.tar.gz",
       "status": 200,
       "download_host": "release-assets.githubusercontent.com",
-      "bytes": 131902933,
-      "sha256": "ca20d0843338edb9ebab1c5cb5c99b7c9db4052c8f23a5b945cae3c0f99ef3f6"
+      "bytes": 134182702,
+      "sha256": "46cf5aa7a10cc5e03821acf5bdc282bb23c88659fa030b8585c74ddef18d341c"
     }
   ],
-  "compared_runtime_files": 4938,
+  "compared_runtime_files": 4950,
   "differences_from_cloud_package": [
     "BUILD-PROVENANCE.json",
     "SHA256SUMS"
   ],
   "runtime_game_adapter_assets_identical": true,
-  "release_url": "https://github.com/dusten45/test/releases/tag/paladog-linux-preview-1",
-  "build_url": "https://github.com/dusten45/test/actions/runs/39099137659",
-  "source_commit": "7b80425abf4b93dacc64d6e0cc2037ff20531777"
+  "source_commit": "22c2de1758d71b2a110401d293172a50bc045b30",
+  "build_url": "https://github.com/dusten45/test/actions/runs/39124333107"
 }
