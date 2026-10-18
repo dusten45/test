@@ -1,0 +1,52 @@
+# Signing material and local secrets
+**/private/
+**/keystore-password
+*.p12
+*.jks
+*.keystore
+*.key
+.env
+.env.*
+!.env.example
+
+# Original uploads, decoded work trees and intermediate APKs
+**/input/
+*.part[0-9]*
+*.apk
+!paladog-work/output/Paladog-2.2.0-modern-offline.apk
+*.idsig
+*.zip
+paladog-work/decoded/
+paladog-work/patched/
+paladog-work/verified-decode/
+paladog-work/modern-patched/
+paladog-work/modern-verified-decode/
+paladog-work/jadx/
+paladog-work/final-jadx/
+paladog-work/pre-text-fit-fix/
+paladog-work/toolcheck.*/
+
+# Downloaded tools, Android images and caches
+**/downloads/
+**/logs/
+paladog-tools/android/
+paladog-tools/bin/
+paladog-tools/framework/
+paladog-tools/jadx-*/
+paladog-tools/runtime/*
+!paladog-tools/runtime/RUNTIME.md
+
+# Runtime saves and raw device dumps
+**/shared_prefs*/
+**/save-after-*/
+**/save-before-*/
+**/pre-update-save/
+**/pre-import-prefs/
+**/*logcat*.txt
+**/*process-maps*.txt
+**/package-dump.txt
+*.sav
+*.img
+*.qcow2
+__pycache__/
+*.py[cod]

@@ -1,0 +1,7 @@
+[
+  "smali/com/Paladog/KorGG/Paladog.smali",
+  "smali/com/SPC/LoadingLayer.smali",
+  "smali/com/common/Library.smali",
+  "smali/com/my/Layer/MainMenuLayer.smali",
+  "AndroidManifest.xml"
+]

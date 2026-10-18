@@ -1,0 +1,76 @@
+{
+  "apk": "/workspace/paladog-work/output/Paladog-2.2.0-offline-privacy.apk",
+  "bytes": 40953142,
+  "sha256": "92f93b8bf639f1765457d8dd3b83bc440089d4d885c2d244e94445fbc0533213",
+  "checks_passed": [
+    "APK ZIP CRC",
+    "No duplicate ZIP members",
+    "Original non-signature member set preserved",
+    "Only Manifest and DEX changed inside APK",
+    "All other APK contents byte-for-byte preserved",
+    "Native ABI inventory: ARM32 libraries retained",
+    "Only VIBRATE permission remains",
+    "No push receiver or service",
+    "No shared UID",
+    "Automatic cloud backup disabled",
+    "Cleartext explicitly disabled",
+    "Only launcher exported",
+    "No telephony, Android-ID, billing binding or GCM API invocation in main Activity",
+    "UDID and phone use empty strings",
+    "Billing connection cleared before initialization",
+    "Process enumeration removed",
+    "Existing license initialization still invoked",
+    "New offline notices use registered local dialog",
+    "Explicit local component filter: public startActivity(Landroid/content/Intent;)V",
+    "Explicit local component filter: public startActivityForResult(Landroid/content/Intent;I)V",
+    "Consent prompts and registration requests physically removed",
+    "Core startup and battle recovery retained",
+    "Offline helper has no side effects: public DownloadHtml(Ljava/lang/String;)Ljava/lang/String;",
+    "Offline helper has no side effects: public DownloadHtml_Apache(Ljava/lang/String;)Ljava/lang/String;",
+    "Offline helper has no side effects: public GetServerXML(I)V",
+    "Offline helper has no side effects: public HttpFileDownload(Ljava/lang/String;Ljava/lang/String;)V",
+    "Offline helper has no side effects: public HttpFileUpload(Ljava/lang/String;Ljava/lang/String;)V",
+    "Offline helper has no side effects: public networkCheck()Z",
+    "Offline helper has no side effects: public rootingCheck()Z",
+    "Only five planned decoded files modified",
+    "Save serializers, encryption and AppDelegate unchanged",
+    "Original license policy unchanged",
+    "APK v1 and v2 signatures verify",
+    "Output certificate differs from public test key"
+  ],
+  "unchanged_non_signature_entries": 4767,
+  "changed_non_signature_entries": [
+    "AndroidManifest.xml",
+    "classes.dex"
+  ],
+  "permissions": [
+    "android.permission.VIBRATE"
+  ],
+  "native_libraries": [
+    {
+      "path": "lib/armeabi-v7a/libsimpleencryption.so",
+      "sha256": "3bef7242f234a1571d4f0795d168d609ed4065c78087c071aa391b8de6cade15",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/armeabi/libAppleJuice.so",
+      "sha256": "20df941fcc10fdb42adf8614fed716b2332152d5ebe706a460ad8ae586fe98d7",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/armeabi/libdes3jni.so",
+      "sha256": "914dd60d795e89a1eff5ffa8720aa443edb4ef8a495f3996382ab7250ab199e6",
+      "elf_class": 1,
+      "machine": 40
+    },
+    {
+      "path": "lib/armeabi/libsimpleencryption.so",
+      "sha256": "aff37c2e01059c3e393f0648e22820ec58530c7594c5bc4fbcdd3db82757997f",
+      "elf_class": 1,
+      "machine": 40
+    }
+  ],
+  "runtime_validation": "reported separately; static checks do not establish gameplay or malware absence"
+}

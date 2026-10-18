@@ -1,0 +1,4342 @@
+--- original/smali/com/Paladog/KorGG/Paladog.smali
++++ patched/smali/com/Paladog/KorGG/Paladog.smali
+@@ -266,259 +266,16 @@
+ .end method
+ 
+ .method protected BuyCashItem(Ljava/lang/String;)V
+-    .locals 18
+-    .param p1, "strItemName"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 1082
+-    :try_start_0
+-    invoke-virtual/range {p0 .. p0}, Lcom/Paladog/KorGG/Paladog;->getPackageName()Ljava/lang/String;
+-
+-    move-result-object v17
+-
+-    .line 1083
+-    .local v17, "strPackName":Ljava/lang/String;
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/Paladog/KorGG/Paladog;->mService:Lcom/android/vending/billing/IInAppBillingService;
+-
+-    const/4 v2, 0x3
+-
+-    const-string v3, "inapp"
+-
+-    const/4 v4, 0x0
+-
+-    move-object/from16 v0, v17
+-
+-    invoke-interface {v1, v2, v0, v3, v4}, Lcom/android/vending/billing/IInAppBillingService;->getPurchases(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/os/Bundle;
+-
+-    move-result-object v12
+-
+-    .line 1085
+-    .local v12, "ownedItems":Landroid/os/Bundle;
+-    const-string v1, "RESPONSE_CODE"
+-
+-    invoke-virtual {v12, v1}, Landroid/os/Bundle;->getInt(Ljava/lang/String;)I
+-
+-    move-result v16
+-
+-    .line 1086
+-    .local v16, "response":I
+-    if-nez v16, :cond_0
+-
+-    .line 1088
+-    const-string v1, "INAPP_PURCHASE_DATA_LIST"
+-
+-    invoke-virtual {v12, v1}, Landroid/os/Bundle;->getStringArrayList(Ljava/lang/String;)Ljava/util/ArrayList;
+-
+-    move-result-object v15
+-
+-    .line 1090
+-    .local v15, "purchaseDataList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/String;>;"
+-    if-eqz v15, :cond_0
+-
+-    .line 1092
+-    const/4 v10, 0x0
+-
+-    .local v10, "i":I
+-    :goto_0
+-    invoke-virtual {v15}, Ljava/util/ArrayList;->size()I
+-
+-    move-result v1
+-
+-    if-lt v10, v1, :cond_1
+-
+-    .line 1107
+-    .end local v10    # "i":I
+-    .end local v15    # "purchaseDataList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/String;>;"
+-    :cond_0
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/Paladog/KorGG/Paladog;->mService:Lcom/android/vending/billing/IInAppBillingService;
+-
+-    const/4 v2, 0x3
+-
+-    invoke-virtual/range {p0 .. p0}, Lcom/Paladog/KorGG/Paladog;->getPackageName()Ljava/lang/String;
+-
+-    move-result-object v3
+-
+-    const-string v5, "inapp"
+-
+-    const-string v6, ""
+-
+-    move-object/from16 v4, p1
+-
+-    invoke-interface/range {v1 .. v6}, Lcom/android/vending/billing/IInAppBillingService;->getBuyIntent(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Landroid/os/Bundle;
+-
+-    move-result-object v8
+-
+-    .line 1109
+-    .local v8, "buyIntentBundle":Landroid/os/Bundle;
+-    move-object/from16 v0, p0
+-
+-    invoke-virtual {v0, v8}, Lcom/Paladog/KorGG/Paladog;->getResponseCodeFromBundle(Landroid/os/Bundle;)I
+-
+-    move-result v16
+-
+-    .line 1110
+-    if-nez v16, :cond_3
+-
+-    .line 1112
+-    const-string v1, "BUY_INTENT"
+-
+-    invoke-virtual {v8, v1}, Landroid/os/Bundle;->getParcelable(Ljava/lang/String;)Landroid/os/Parcelable;
+-
+-    move-result-object v13
+-
+-    check-cast v13, Landroid/app/PendingIntent;
+-
+-    .line 1113
+-    .local v13, "pendingIntent":Landroid/app/PendingIntent;
+-    invoke-virtual {v13}, Landroid/app/PendingIntent;->getIntentSender()Landroid/content/IntentSender;
+-
+-    move-result-object v2
+-
+-    const/16 v3, 0x3f5
+-
+-    new-instance v4, Landroid/content/Intent;
+-
+-    invoke-direct {v4}, Landroid/content/Intent;-><init>()V
+-
++    .locals 2
++    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
++    move-result-object v0
+     const/4 v1, 0x0
+-
+-    invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+-
+-    move-result-object v1
+-
+-    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+-
+-    move-result v5
+-
+-    const/4 v1, 0x0
+-
+-    invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+-
+-    move-result-object v1
+-
+-    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+-
+-    move-result v6
+-
+-    const/4 v1, 0x0
+-
+-    invoke-static {v1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+-
+-    move-result-object v1
+-
+-    invoke-virtual {v1}, Ljava/lang/Integer;->intValue()I
+-
+-    move-result v7
+-
+-    move-object/from16 v1, p0
+-
+-    invoke-virtual/range {v1 .. v7}, Lcom/Paladog/KorGG/Paladog;->startIntentSenderForResult(Landroid/content/IntentSender;ILandroid/content/Intent;III)V
+-
+-    .line 1124
+-    .end local v8    # "buyIntentBundle":Landroid/os/Bundle;
+-    .end local v12    # "ownedItems":Landroid/os/Bundle;
+-    .end local v13    # "pendingIntent":Landroid/app/PendingIntent;
+-    .end local v16    # "response":I
+-    .end local v17    # "strPackName":Ljava/lang/String;
+-    :goto_1
+-    return-void
+-
+-    .line 1094
+-    .restart local v10    # "i":I
+-    .restart local v12    # "ownedItems":Landroid/os/Bundle;
+-    .restart local v15    # "purchaseDataList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/String;>;"
+-    .restart local v16    # "response":I
+-    .restart local v17    # "strPackName":Ljava/lang/String;
+-    :cond_1
+-    invoke-virtual {v15, v10}, Ljava/util/ArrayList;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v14
+-
+-    check-cast v14, Ljava/lang/String;
+-
+-    .line 1096
+-    .local v14, "purchaseData":Ljava/lang/String;
+-    if-eqz v14, :cond_2
+-
+-    .line 1098
+-    new-instance v11, Lorg/json/JSONObject;
+-
+-    invoke-direct {v11, v14}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+-
+-    .line 1099
+-    .local v11, "obj":Lorg/json/JSONObject;
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/Paladog/KorGG/Paladog;->mService:Lcom/android/vending/billing/IInAppBillingService;
+-
+-    const/4 v2, 0x3
+-
+-    invoke-virtual/range {p0 .. p0}, Lcom/Paladog/KorGG/Paladog;->getPackageName()Ljava/lang/String;
+-
+-    move-result-object v3
+-
+-    const-string v4, "token"
+-
+-    const-string v5, "purchaseToken"
+-
+-    invoke-virtual {v11, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v5
+-
+-    invoke-virtual {v11, v4, v5}, Lorg/json/JSONObject;->optString(Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v4
+-
+-    invoke-interface {v1, v2, v3, v4}, Lcom/android/vending/billing/IInAppBillingService;->consumePurchase(ILjava/lang/String;Ljava/lang/String;)I
+-
+-    .line 1092
+-    .end local v11    # "obj":Lorg/json/JSONObject;
+-    :cond_2
+-    add-int/lit8 v10, v10, 0x1
+-
+-    goto :goto_0
+-
+-    .line 1117
+-    .end local v10    # "i":I
+-    .end local v14    # "purchaseData":Ljava/lang/String;
+-    .end local v15    # "purchaseDataList":Ljava/util/ArrayList;, "Ljava/util/ArrayList<Ljava/lang/String;>;"
+-    .restart local v8    # "buyIntentBundle":Landroid/os/Bundle;
+-    :cond_3
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    const/4 v2, 0x0
+-
+-    iput-boolean v2, v1, Lcom/common/AppDelegate;->g_bBuying:Z
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    goto :goto_1
+-
+-    .line 1120
+-    .end local v8    # "buyIntentBundle":Landroid/os/Bundle;
+-    .end local v12    # "ownedItems":Landroid/os/Bundle;
+-    .end local v16    # "response":I
+-    .end local v17    # "strPackName":Ljava/lang/String;
+-    :catch_0
+-    move-exception v9
+-
+-    .line 1122
+-    .local v9, "e":Ljava/lang/Exception;
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    const/4 v2, 0x0
+-
+-    iput-boolean v2, v1, Lcom/common/AppDelegate;->g_bBuying:Z
+-
+-    goto :goto_1
++    iput-boolean v1, v0, Lcom/common/AppDelegate;->g_bBuying:Z
++    iput-boolean v1, v0, Lcom/common/AppDelegate;->g_bPurchaseOK:Z
++    const-string v0, "오프라인 버전에서는 결제를 사용할 수 없습니다."
++    const-string v1, "알림"
++    invoke-virtual {p0, v1, v0}, Lcom/Paladog/KorGG/Paladog;->MessageBoxActivity(Ljava/lang/String;Ljava/lang/String;)V
++    return-void
+ .end method
+ 
+ .method public BuyItemActivity(Ljava/lang/String;)V
+@@ -555,188 +312,14 @@
+ .end method
+ 
+ .method public DownloadCheatFile()V
+-    .locals 2
+-
+-    .prologue
+-    .line 1031
+-    const-string v1, "http://kakao.palamini-game.com/paladog/paladog_cheat.txt"
+-
+-    invoke-virtual {p0, v1}, Lcom/Paladog/KorGG/Paladog;->DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v0
+-
+-    .line 1033
+-    .local v0, "recvData":Ljava/lang/String;
+-    if-nez v0, :cond_1
+-
+-    .line 1043
+-    :cond_0
+-    :goto_0
+-    return-void
+-
+-    .line 1037
+-    :cond_1
+-    invoke-virtual {v0}, Ljava/lang/String;->length()I
+-
+-    move-result v1
+-
+-    if-eqz v1, :cond_0
+-
+-    .line 1042
+-    const-string v1, ","
+-
+-    invoke-virtual {v0, v1}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+-
+-    move-result-object v1
+-
+-    iput-object v1, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    goto :goto_0
++    .locals 0
++    return-void
+ .end method
+ 
+ .method public DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-    .locals 8
+-    .param p1, "addr"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 1048
+-    new-instance v3, Ljava/lang/StringBuilder;
+-
+-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+-
+-    .line 1050
+-    .local v3, "html":Ljava/lang/StringBuilder;
+-    :try_start_0
+-    new-instance v5, Ljava/net/URL;
+-
+-    invoke-direct {v5, p1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+-
+-    .line 1051
+-    .local v5, "url":Ljava/net/URL;
+-    invoke-virtual {v5}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+-
+-    move-result-object v1
+-
+-    check-cast v1, Ljava/net/HttpURLConnection;
+-
+-    .line 1052
+-    .local v1, "conn":Ljava/net/HttpURLConnection;
+-    if-eqz v1, :cond_1
+-
+-    .line 1053
+-    const/16 v6, 0x9c4
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
+-
+-    .line 1054
+-    const/16 v6, 0x9c4
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
+-
+-    .line 1055
+-    const/4 v6, 0x0
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setUseCaches(Z)V
+-
+-    .line 1056
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getResponseCode()I
+-
+-    move-result v6
+-
+-    const/16 v7, 0xc8
+-
+-    if-ne v6, v7, :cond_0
+-
+-    .line 1058
+-    new-instance v0, Ljava/io/BufferedReader;
+-
+-    new-instance v6, Ljava/io/InputStreamReader;
+-
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
+-
+-    move-result-object v7
+-
+-    invoke-direct {v6, v7}, Ljava/io/InputStreamReader;-><init>(Ljava/io/InputStream;)V
+-
+-    invoke-direct {v0, v6}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+-
+-    .line 1060
+-    .local v0, "br":Ljava/io/BufferedReader;
+-    :goto_0
+-    invoke-virtual {v0}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+-
+-    move-result-object v4
+-
+-    .line 1061
+-    .local v4, "line":Ljava/lang/String;
+-    if-nez v4, :cond_2
+-
+-    .line 1064
+-    invoke-virtual {v0}, Ljava/io/BufferedReader;->close()V
+-
+-    .line 1066
+-    .end local v0    # "br":Ljava/io/BufferedReader;
+-    .end local v4    # "line":Ljava/lang/String;
+-    :cond_0
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->disconnect()V
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    .line 1073
+-    :cond_1
+-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v6
+-
+-    .end local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .end local v5    # "url":Ljava/net/URL;
+-    :goto_1
+-    return-object v6
+-
+-    .line 1062
+-    .restart local v0    # "br":Ljava/io/BufferedReader;
+-    .restart local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .restart local v4    # "line":Ljava/lang/String;
+-    .restart local v5    # "url":Ljava/net/URL;
+-    :cond_2
+-    :try_start_1
+-    new-instance v6, Ljava/lang/StringBuilder;
+-
+-    invoke-static {v4}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v7
+-
+-    invoke-direct {v6, v7}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    const/16 v7, 0xa
+-
+-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+-
+-    move-result-object v6
+-
+-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v6
+-
+-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-    :try_end_1
+-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+-
+-    goto :goto_0
+-
+-    .line 1069
+-    .end local v0    # "br":Ljava/io/BufferedReader;
+-    .end local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .end local v4    # "line":Ljava/lang/String;
+-    .end local v5    # "url":Ljava/net/URL;
+-    :catch_0
+-    move-exception v2
+-
+-    .line 1071
+-    .local v2, "ex":Ljava/lang/Exception;
+-    const/4 v6, 0x0
+-
+-    goto :goto_1
++    .locals 1
++    const/4 v0, 0x0
++    return-object v0
+ .end method
+ 
+ .method public Google_LVL()Z
+@@ -753,15 +336,7 @@
+     iput-object v1, p0, Lcom/Paladog/KorGG/Paladog;->mLicenseCheckerCallback:Lcom/google/android/vending/licensing/LicenseCheckerCallback;
+ 
+     .line 472
+-    invoke-virtual {p0}, Lcom/Paladog/KorGG/Paladog;->getContentResolver()Landroid/content/ContentResolver;
+-
+-    move-result-object v1
+-
+-    const-string v2, "android_id"
+-
+-    invoke-static {v1, v2}, Landroid/provider/Settings$Secure;->getString(Landroid/content/ContentResolver;Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v0
++    const-string v0, "paladog-local-offline"
+ 
+     .line 473
+     .local v0, "deviceId":Ljava/lang/String;
+@@ -983,334 +558,13 @@
+ .end method
+ 
+ .method public OpenFacebookActivity(I)V
+-    .locals 17
+-    .param p1, "code"    # I
+-
+-    .prologue
+-    .line 599
+-    packed-switch p1, :pswitch_data_0
+-
+-    .line 659
+-    :goto_0
+-    :pswitch_0
+-    return-void
+-
+-    .line 604
+-    :pswitch_1
+-    new-instance v8, Landroid/content/Intent;
+-
+-    const-class v15, Lcom/Paladog/KorGG/FaceBookActivity;
+-
+-    move-object/from16 v0, p0
+-
+-    invoke-direct {v8, v0, v15}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+-
+-    .line 605
+-    .local v8, "intent":Landroid/content/Intent;
+-    move-object/from16 v0, p0
+-
+-    move/from16 v1, p1
+-
+-    invoke-virtual {v0, v8, v1}, Lcom/Paladog/KorGG/Paladog;->startActivityForResult(Landroid/content/Intent;I)V
+-
+-    goto :goto_0
+-
+-    .line 610
+-    .end local v8    # "intent":Landroid/content/Intent;
+-    :pswitch_2
+-    new-instance v2, Lcom/facebook/android/AsyncFacebookRunner;
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15}, Lcom/Paladog/KorGG/ViewController;->getFaceBook()Lcom/facebook/android/Facebook;
+-
+-    move-result-object v15
+-
+-    invoke-direct {v2, v15}, Lcom/facebook/android/AsyncFacebookRunner;-><init>(Lcom/facebook/android/Facebook;)V
+-
+-    .line 611
+-    .local v2, "asyncRunner":Lcom/facebook/android/AsyncFacebookRunner;
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->m_context:Landroid/content/Context;
+-
+-    new-instance v16, Lcom/Paladog/KorGG/Paladog$LogoutRequestListener;
+-
+-    invoke-direct/range {v16 .. v17}, Lcom/Paladog/KorGG/Paladog$LogoutRequestListener;-><init>(Lcom/Paladog/KorGG/Paladog;)V
+-
+-    move-object/from16 v0, v16
+-
+-    invoke-virtual {v2, v15, v0}, Lcom/facebook/android/AsyncFacebookRunner;->logout(Landroid/content/Context;Lcom/facebook/android/AsyncFacebookRunner$RequestListener;)V
+-
+-    goto :goto_0
+-
+-    .line 616
+-    .end local v2    # "asyncRunner":Lcom/facebook/android/AsyncFacebookRunner;
+-    :pswitch_3
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15}, Lcom/Paladog/KorGG/ViewController;->getFaceBook()Lcom/facebook/android/Facebook;
+-
+-    move-result-object v15
+-
+-    invoke-virtual {v15}, Lcom/facebook/android/Facebook;->isSessionValid()Z
+-
+-    move-result v15
+-
+-    if-eqz v15, :cond_0
+-
+-    .line 621
+-    :try_start_0
+-    new-instance v13, Landroid/os/Bundle;
+-
+-    invoke-direct {v13}, Landroid/os/Bundle;-><init>()V
+-
+-    .line 622
+-    .local v13, "params":Landroid/os/Bundle;
+-    const-string v15, "method"
+-
+-    const-string v16, "fql.query"
+-
+-    move-object/from16 v0, v16
+-
+-    invoke-virtual {v13, v15, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+-
+-    .line 623
+-    const-string v15, "query"
+-
+-    const-string v16, "SELECT uid,name,pic_small FROM user WHERE is_app_user=1 and uid IN ( SELECT uid2 FROM friend WHERE uid1 = me())"
+-
+-    move-object/from16 v0, v16
+-
+-    invoke-virtual {v13, v15, v0}, Landroid/os/Bundle;->putString(Ljava/lang/String;Ljava/lang/String;)V
+-
+-    .line 624
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15}, Lcom/Paladog/KorGG/ViewController;->getFaceBook()Lcom/facebook/android/Facebook;
+-
+-    move-result-object v15
+-
+-    invoke-virtual {v15, v13}, Lcom/facebook/android/Facebook;->request(Landroid/os/Bundle;)Ljava/lang/String;
+-
+-    move-result-object v14
+-
+-    .line 625
+-    .local v14, "response":Ljava/lang/String;
+-    new-instance v15, Ljava/lang/StringBuilder;
+-
+-    const-string v16, "{\"data\":"
+-
+-    invoke-direct/range {v15 .. v16}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    invoke-virtual {v15, v14}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v15
+-
+-    const-string v16, "}"
+-
+-    invoke-virtual/range {v15 .. v16}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v15
+-
+-    invoke-virtual {v15}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v14
+-
+-    .line 627
+-    new-instance v9, Lorg/json/JSONObject;
+-
+-    invoke-direct {v9, v14}, Lorg/json/JSONObject;-><init>(Ljava/lang/String;)V
+-
+-    .line 628
+-    .local v9, "json":Lorg/json/JSONObject;
+-    const-string v15, "data"
+-
+-    invoke-virtual {v9, v15}, Lorg/json/JSONObject;->getJSONArray(Ljava/lang/String;)Lorg/json/JSONArray;
+-
+-    move-result-object v3
+-
+-    .line 629
+-    .local v3, "d":Lorg/json/JSONArray;
+-    if-eqz v3, :cond_1
+-
+-    invoke-virtual {v3}, Lorg/json/JSONArray;->length()I
+-
+-    move-result v10
+-
+-    .line 631
+-    .local v10, "l":I
+-    :goto_1
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15}, Lcom/Paladog/KorGG/ViewController;->RemoveFriendList()V
+-    :try_end_0
+-    .catch Lorg/json/JSONException; {:try_start_0 .. :try_end_0} :catch_2
+-    .catch Ljava/net/MalformedURLException; {:try_start_0 .. :try_end_0} :catch_0
+-    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_1
+-
+-    .line 632
+-    const/4 v7, 0x0
+-
+-    .local v7, "i":I
+-    :goto_2
+-    if-lt v7, v10, :cond_2
+-
+-    .line 654
+-    .end local v3    # "d":Lorg/json/JSONArray;
+-    .end local v7    # "i":I
+-    .end local v9    # "json":Lorg/json/JSONObject;
+-    .end local v10    # "l":I
+-    .end local v13    # "params":Landroid/os/Bundle;
+-    .end local v14    # "response":Ljava/lang/String;
+-    :cond_0
+-    :goto_3
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15}, Lcom/Paladog/KorGG/ViewController;->FacebookResetRequestKind()V
+-
+-    goto/16 :goto_0
+-
+-    .line 629
+-    .restart local v3    # "d":Lorg/json/JSONArray;
+-    .restart local v9    # "json":Lorg/json/JSONObject;
+-    .restart local v13    # "params":Landroid/os/Bundle;
+-    .restart local v14    # "response":Ljava/lang/String;
+-    :cond_1
+-    const/4 v10, 0x0
+-
+-    goto :goto_1
+-
+-    .line 634
+-    .restart local v7    # "i":I
+-    .restart local v10    # "l":I
+-    :cond_2
+-    :try_start_1
+-    invoke-virtual {v3, v7}, Lorg/json/JSONArray;->getJSONObject(I)Lorg/json/JSONObject;
+-
+-    move-result-object v12
+-
+-    .line 635
+-    .local v12, "o":Lorg/json/JSONObject;
+-    const-string v15, "name"
+-
+-    invoke-virtual {v12, v15}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v6
+-
+-    .line 636
+-    .local v6, "fname":Ljava/lang/String;
+-    const-string v15, "uid"
+-
+-    invoke-virtual {v12, v15}, Lorg/json/JSONObject;->getString(Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v5
+-
+-    .line 637
+-    .local v5, "fid":Ljava/lang/String;
+-    new-instance v11, Lcom/my/Char/FriendInfo;
+-
+-    invoke-direct {v11}, Lcom/my/Char/FriendInfo;-><init>()V
+-
+-    .line 638
+-    .local v11, "lc_pFI":Lcom/my/Char/FriendInfo;
+-    invoke-virtual {v11, v5}, Lcom/my/Char/FriendInfo;->SetUID(Ljava/lang/String;)V
+-
+-    .line 639
+-    invoke-virtual {v11, v6}, Lcom/my/Char/FriendInfo;->SetName(Ljava/lang/String;)V
+-
+-    .line 640
+-    invoke-virtual {v11}, Lcom/my/Char/FriendInfo;->SavePicNameFromURL()V
+-
+-    .line 641
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v15
+-
+-    iget-object v15, v15, Lcom/common/AppDelegate;->viewController:Lcom/Paladog/KorGG/ViewController;
+-
+-    invoke-virtual {v15, v11}, Lcom/Paladog/KorGG/ViewController;->addFriend(Lcom/my/Char/FriendInfo;)V
+-    :try_end_1
+-    .catch Lorg/json/JSONException; {:try_start_1 .. :try_end_1} :catch_2
+-    .catch Ljava/net/MalformedURLException; {:try_start_1 .. :try_end_1} :catch_0
+-    .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_1
+-
+-    .line 632
+-    add-int/lit8 v7, v7, 0x1
+-
+-    goto :goto_2
+-
+-    .line 646
+-    .end local v3    # "d":Lorg/json/JSONArray;
+-    .end local v5    # "fid":Ljava/lang/String;
+-    .end local v6    # "fname":Ljava/lang/String;
+-    .end local v7    # "i":I
+-    .end local v9    # "json":Lorg/json/JSONObject;
+-    .end local v10    # "l":I
+-    .end local v11    # "lc_pFI":Lcom/my/Char/FriendInfo;
+-    .end local v12    # "o":Lorg/json/JSONObject;
+-    .end local v13    # "params":Landroid/os/Bundle;
+-    .end local v14    # "response":Ljava/lang/String;
+-    :catch_0
+-    move-exception v4
+-
+-    .line 648
+-    .local v4, "e":Ljava/net/MalformedURLException;
+-    invoke-virtual {v4}, Ljava/net/MalformedURLException;->printStackTrace()V
+-
+-    goto :goto_3
+-
+-    .line 649
+-    .end local v4    # "e":Ljava/net/MalformedURLException;
+-    :catch_1
+-    move-exception v4
+-
+-    .line 651
+-    .local v4, "e":Ljava/io/IOException;
+-    invoke-virtual {v4}, Ljava/io/IOException;->printStackTrace()V
+-
+-    goto :goto_3
+-
+-    .line 644
+-    .end local v4    # "e":Ljava/io/IOException;
+-    :catch_2
+-    move-exception v15
+-
+-    goto :goto_3
+-
+-    .line 599
+-    nop
+-
+-    :pswitch_data_0
+-    .packed-switch 0x13
+-        :pswitch_1
+-        :pswitch_1
+-        :pswitch_2
+-        :pswitch_0
+-        :pswitch_3
+-    .end packed-switch
++    .locals 1
++    const/4 v0, 0x0
++    iput-boolean v0, p0, Lcom/Paladog/KorGG/Paladog;->m_bLoginTrying:Z
++    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
++    move-result-object v0
++    invoke-virtual {v0}, Lcom/common/AppDelegate;->FacebookResetRequestKind()V
++    return-void
+ .end method
+ 
+ .method public OpenInputActivity(Lcom/my/Layer/LoginLayer;ILjava/lang/String;)V
+@@ -1728,39 +982,9 @@
+ .end method
+ 
+ .method public ServerSend_ErrorMessageBoxActivity(Ljava/lang/String;Ljava/lang/String;)V
+-    .locals 2
+-    .param p1, "msg"    # Ljava/lang/String;
+-    .param p2, "fName"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 592
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iput-object p2, v1, Lcom/my/Struct/ANDROIDSAVEINFO;->strServerSendFileName:Ljava/lang/String;
+-
+-    .line 593
+-    new-instance v0, Landroid/content/Intent;
+-
+-    const-class v1, Lcom/Paladog/KorGG/ServerSendMessageBoxActivity;
+-
+-    invoke-direct {v0, p0, v1}, Landroid/content/Intent;-><init>(Landroid/content/Context;Ljava/lang/Class;)V
+-
+-    .line 594
+-    .local v0, "intent":Landroid/content/Intent;
+-    const-string v1, "MESSAGE"
+-
+-    invoke-virtual {v0, v1, p1}, Landroid/content/Intent;->putExtra(Ljava/lang/String;Ljava/lang/String;)Landroid/content/Intent;
+-
+-    .line 595
+-    const/16 v1, 0x19
+-
+-    invoke-virtual {p0, v0, v1}, Lcom/Paladog/KorGG/Paladog;->startActivityForResult(Landroid/content/Intent;I)V
+-
+-    .line 596
++    .locals 1
++    const-string v0, "알림"
++    invoke-virtual {p0, v0, p1}, Lcom/Paladog/KorGG/Paladog;->MessageBoxActivity(Ljava/lang/String;Ljava/lang/String;)V
+     return-void
+ .end method
+ 
+@@ -1865,398 +1089,9 @@
+ .end method
+ 
+ .method public checkCheatApp()Z
+-    .locals 12
+-
+-    .prologue
+-    .line 936
+-    invoke-virtual {p0}, Lcom/Paladog/KorGG/Paladog;->DownloadCheatFile()V
+-
+-    .line 938
+-    const/4 v8, 0x0
+-
+-    .line 939
+-    .local v8, "rval":Z
+-    const-string v0, ""
+-
+-    .line 944
+-    .local v0, "Value":Ljava/lang/String;
+-    :try_start_0
+-    invoke-static {}, Ljava/lang/Runtime;->getRuntime()Ljava/lang/Runtime;
+-
+-    move-result-object v9
+-
+-    const-string v10, "ps"
+-
+-    invoke-virtual {v9, v10}, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+-
+-    move-result-object v7
+-
+-    .line 945
+-    .local v7, "ps":Ljava/lang/Process;
+-    const/16 v9, 0x80
+-
+-    new-array v5, v9, [B
+-
+-    .line 947
+-    .local v5, "msg":[B
+-    :goto_0
+-    invoke-virtual {v7}, Ljava/lang/Process;->getInputStream()Ljava/io/InputStream;
+-
+-    move-result-object v9
+-
+-    invoke-virtual {v9, v5}, Ljava/io/InputStream;->read([B)I
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    move-result v4
+-
+-    .local v4, "len":I
+-    if-gtz v4, :cond_5
+-
+-    .line 957
+-    .end local v4    # "len":I
+-    .end local v5    # "msg":[B
+-    .end local v7    # "ps":Ljava/lang/Process;
+-    :goto_1
+-    const-string v9, "gamecih"
+-
+-    invoke-virtual {v0, v9}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
+-
+-    move-result v9
+-
+-    if-ltz v9, :cond_0
+-
+-    .line 959
+-    const/4 v8, 0x1
+-
+-    .line 961
+-    :cond_0
+-    const-string v9, "game_cih"
+-
+-    invoke-virtual {v0, v9}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
+-
+-    move-result v9
+-
+-    if-ltz v9, :cond_1
+-
+-    .line 963
+-    const/4 v8, 0x1
+-
+-    .line 965
+-    :cond_1
+-    const-string v9, "gamekiller"
+-
+-    invoke-virtual {v0, v9}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
+-
+-    move-result v9
+-
+-    if-ltz v9, :cond_2
+-
+-    .line 967
+-    const/4 v8, 0x1
+-
+-    .line 969
+-    :cond_2
+-    const-string v9, "idv.aqua.bulldog"
+-
+-    invoke-virtual {v0, v9}, Ljava/lang/String;->indexOf(Ljava/lang/String;)I
+-
+-    move-result v9
+-
+-    if-ltz v9, :cond_3
+-
+-    .line 971
+-    const/4 v8, 0x1
+-
+-    .line 973
+-    :cond_3
+-    iget-object v9, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    if-eqz v9, :cond_4
+-
+-    .line 975
+-    const/4 v2, 0x0
+-
+-    .local v2, "i":I
+-    :goto_2
+-    iget-object v9, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    array-length v9, v9
+-
+-    if-lt v2, v9, :cond_6
+-
+-    .line 986
+-    .end local v2    # "i":I
+-    :cond_4
+-    :goto_3
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v9
+-
+-    iget-object v9, v9, Lcom/common/AppDelegate;->m_Paladog:Lcom/Paladog/KorGG/Paladog;
+-
+-    const-string v10, "activity"
+-
+-    invoke-virtual {v9, v10}, Lcom/Paladog/KorGG/Paladog;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+-
+-    move-result-object v1
+-
+-    check-cast v1, Landroid/app/ActivityManager;
+-
+-    .line 987
+-    .local v1, "actvityManager":Landroid/app/ActivityManager;
+-    invoke-virtual {v1}, Landroid/app/ActivityManager;->getRunningAppProcesses()Ljava/util/List;
+-
+-    move-result-object v6
+-
+-    .line 988
+-    .local v6, "procInfos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningAppProcessInfo;>;"
+-    const/4 v2, 0x0
+-
+-    .restart local v2    # "i":I
+-    :goto_4
+-    invoke-interface {v6}, Ljava/util/List;->size()I
+-
+-    move-result v9
+-
+-    if-lt v2, v9, :cond_8
+-
+-    .line 1027
+-    :goto_5
+-    return v8
+-
+-    .line 949
+-    .end local v1    # "actvityManager":Landroid/app/ActivityManager;
+-    .end local v2    # "i":I
+-    .end local v6    # "procInfos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningAppProcessInfo;>;"
+-    .restart local v4    # "len":I
+-    .restart local v5    # "msg":[B
+-    .restart local v7    # "ps":Ljava/lang/Process;
+-    :cond_5
+-    :try_start_1
+-    new-instance v9, Ljava/lang/StringBuilder;
+-
+-    invoke-static {v0}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v10
+-
+-    invoke-direct {v9, v10}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    new-instance v10, Ljava/lang/String;
+-
+-    const/4 v11, 0x0
+-
+-    invoke-direct {v10, v5, v11, v4}, Ljava/lang/String;-><init>([BII)V
+-
+-    invoke-virtual {v9, v10}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v9
+-
+-    invoke-virtual {v9}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-    :try_end_1
+-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+-
+-    move-result-object v0
+-
+-    goto :goto_0
+-
+-    .line 977
+-    .end local v4    # "len":I
+-    .end local v5    # "msg":[B
+-    .end local v7    # "ps":Ljava/lang/Process;
+-    .restart local v2    # "i":I
+-    :cond_6
+-    iget-object v9, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    aget-object v9, v9, v2
+-
+-    invoke-virtual {v0, v9}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
+-
+-    move-result v9
+-
+-    if-eqz v9, :cond_7
+-
+-    .line 979
+-    const/4 v8, 0x1
+-
+-    .line 980
+-    goto :goto_3
+-
+-    .line 975
+-    :cond_7
+-    add-int/lit8 v2, v2, 0x1
+-
+-    goto :goto_2
+-
+-    .line 990
+-    .restart local v1    # "actvityManager":Landroid/app/ActivityManager;
+-    .restart local v6    # "procInfos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningAppProcessInfo;>;"
+-    :cond_8
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    const-string v10, "gamecih"
+-
+-    if-ne v9, v10, :cond_9
+-
+-    .line 992
+-    const/4 v8, 0x1
+-
+-    .line 993
+-    goto :goto_5
+-
+-    .line 995
+-    :cond_9
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    const-string v10, "game_cih"
+-
+-    if-ne v9, v10, :cond_a
+-
+-    .line 997
+-    const/4 v8, 0x1
+-
+-    .line 998
+-    goto :goto_5
+-
+-    .line 1000
+-    :cond_a
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    const-string v10, "gamekiller"
+-
+-    if-ne v9, v10, :cond_b
+-
+-    .line 1002
+-    const/4 v8, 0x1
+-
+-    .line 1003
+-    goto :goto_5
+-
+-    .line 1005
+-    :cond_b
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    const-string v10, "idv.aqua.bulldog"
+-
+-    if-ne v9, v10, :cond_c
+-
+-    .line 1007
+-    const/4 v8, 0x1
+-
+-    .line 1008
+-    goto :goto_5
+-
+-    .line 1010
+-    :cond_c
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    const-string v10, "net.da.super"
+-
+-    if-ne v9, v10, :cond_d
+-
+-    .line 1012
+-    const/4 v8, 0x1
+-
+-    .line 1013
+-    goto :goto_5
+-
+-    .line 1015
+-    :cond_d
+-    iget-object v9, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    if-eqz v9, :cond_e
+-
+-    .line 1017
+-    const/4 v3, 0x0
+-
+-    .local v3, "j":I
+-    :goto_6
+-    iget-object v9, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    array-length v9, v9
+-
+-    if-lt v3, v9, :cond_f
+-
+-    .line 988
+-    .end local v3    # "j":I
+-    :cond_e
+-    :goto_7
+-    add-int/lit8 v2, v2, 0x1
+-
+-    goto :goto_4
+-
+-    .line 1019
+-    .restart local v3    # "j":I
+-    :cond_f
+-    invoke-interface {v6, v2}, Ljava/util/List;->get(I)Ljava/lang/Object;
+-
+-    move-result-object v9
+-
+-    check-cast v9, Landroid/app/ActivityManager$RunningAppProcessInfo;
+-
+-    iget-object v9, v9, Landroid/app/ActivityManager$RunningAppProcessInfo;->processName:Ljava/lang/String;
+-
+-    iget-object v10, p0, Lcom/Paladog/KorGG/Paladog;->m_cheats:[Ljava/lang/String;
+-
+-    aget-object v10, v10, v3
+-
+-    invoke-virtual {v9, v10}, Ljava/lang/String;->matches(Ljava/lang/String;)Z
+-
+-    move-result v9
+-
+-    if-eqz v9, :cond_10
+-
+-    .line 1021
+-    const/4 v8, 0x1
+-
+-    .line 1022
+-    goto :goto_7
+-
+-    .line 1017
+-    :cond_10
+-    add-int/lit8 v3, v3, 0x1
+-
+-    goto :goto_6
+-
+-    .line 952
+-    .end local v1    # "actvityManager":Landroid/app/ActivityManager;
+-    .end local v2    # "i":I
+-    .end local v3    # "j":I
+-    .end local v6    # "procInfos":Ljava/util/List;, "Ljava/util/List<Landroid/app/ActivityManager$RunningAppProcessInfo;>;"
+-    :catch_0
+-    move-exception v9
+-
+-    goto/16 :goto_1
++    .locals 1
++    const/4 v0, 0x0
++    return v0
+ .end method
+ 
+ .method protected getResponseCodeFromBundle(Landroid/os/Bundle;)I
+@@ -2982,13 +1817,7 @@
+     iput-object v3, p0, Lcom/Paladog/KorGG/Paladog;->m_PackageName:Ljava/lang/String;
+ 
+     .line 144
+-    const-string v3, "phone"
+-
+-    invoke-virtual {p0, v3}, Lcom/Paladog/KorGG/Paladog;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+-
+-    move-result-object v1
+-
+-    check-cast v1, Landroid/telephony/TelephonyManager;
++    const/4 v1, 0x0
+ 
+     .line 147
+     .local v1, "mTelephonyMgr":Landroid/telephony/TelephonyManager;
+@@ -2998,9 +1827,7 @@
+ 
+     iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+ 
+-    invoke-virtual {v1}, Landroid/telephony/TelephonyManager;->getDeviceId()Ljava/lang/String;
+-
+-    move-result-object v4
++    const-string v4, ""
+ 
+     iput-object v4, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strUDID:Ljava/lang/String;
+ 
+@@ -3034,9 +1861,7 @@
+ 
+     iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+ 
+-    invoke-virtual {v1}, Landroid/telephony/TelephonyManager;->getLine1Number()Ljava/lang/String;
+-
+-    move-result-object v4
++    const-string v4, ""
+ 
+     iput-object v4, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+ 
+@@ -3203,7 +2028,7 @@
+ 
+     iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+ 
+-    const-string v4, "01012345678"
++    const-string v4, ""
+ 
+     iput-object v4, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+ 
+@@ -3429,23 +2254,9 @@
+ 
+     iput-short v8, v3, Lcom/my/Struct/GAMESAVEINFOETC;->iAllowSurvival:S
+ 
+-    .line 240
+-    new-instance v2, Landroid/content/Intent;
+-
+-    const-string v3, "com.android.vending.billing.InAppBillingService.BIND"
+-
+-    invoke-direct {v2, v3}, Landroid/content/Intent;-><init>(Ljava/lang/String;)V
+-
+-    .line 241
+-    .local v2, "svcIntent":Landroid/content/Intent;
+-    const-string v3, "com.android.vending"
+-
+-    invoke-virtual {v2, v3}, Landroid/content/Intent;->setPackage(Ljava/lang/String;)Landroid/content/Intent;
+-
+-    .line 242
+-    iget-object v3, p0, Lcom/Paladog/KorGG/Paladog;->mServiceConn:Landroid/content/ServiceConnection;
+-
+-    invoke-virtual {p0, v2, v3, v8}, Lcom/Paladog/KorGG/Paladog;->bindService(Landroid/content/Intent;Landroid/content/ServiceConnection;I)Z
++    # No billing binding. Null also keeps onDestroy from unbinding it.
++    const/4 v3, 0x0
++    iput-object v3, p0, Lcom/Paladog/KorGG/Paladog;->mServiceConn:Landroid/content/ServiceConnection;
+ 
+     .line 245
+     invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+@@ -3533,7 +2344,7 @@
+ 
+     iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+ 
+-    const-string v4, "01012345678"
++    const-string v4, ""
+ 
+     iput-object v4, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+ 
+@@ -3954,52 +2765,40 @@
+ .end method
+ 
+ .method public registerGcm()V
+-    .locals 4
+-
+-    .prologue
+-    .line 925
+-    invoke-static {p0}, Lcom/google/android/gcm/GCMRegistrar;->checkDevice(Landroid/content/Context;)V
+-
+-    .line 926
+-    invoke-static {p0}, Lcom/google/android/gcm/GCMRegistrar;->checkManifest(Landroid/content/Context;)V
+-
+-    .line 927
+-    invoke-static {p0}, Lcom/google/android/gcm/GCMRegistrar;->getRegistrationId(Landroid/content/Context;)Ljava/lang/String;
+-
++    .locals 0
++    return-void
++.end method
++
++.method public startActivity(Landroid/content/Intent;)V
++    .locals 2
++    invoke-virtual {p1}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
+     move-result-object v0
+-
+-    .line 929
+-    .local v0, "regId":Ljava/lang/String;
+-    const-string v1, ""
+-
++    if-eqz v0, :offline_return
++    invoke-virtual {v0}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
++    move-result-object v0
++    invoke-virtual {p0}, Lcom/Paladog/KorGG/Paladog;->getPackageName()Ljava/lang/String;
++    move-result-object v1
+     invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+-
+-    move-result v1
+-
+-    if-eqz v1, :cond_0
+-
+-    .line 930
+-    const/4 v1, 0x1
+-
+-    new-array v1, v1, [Ljava/lang/String;
+-
+-    const/4 v2, 0x0
+-
+-    const-string v3, "752351460285"
+-
+-    aput-object v3, v1, v2
+-
+-    invoke-static {p0, v1}, Lcom/google/android/gcm/GCMRegistrar;->register(Landroid/content/Context;[Ljava/lang/String;)V
+-
+-    .line 933
+-    :goto_0
+-    return-void
+-
+-    .line 932
+-    :cond_0
+-    const-string v1, "reg_id"
+-
+-    invoke-static {v1, v0}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+-
+-    goto :goto_0
+-.end method
++    move-result v0
++    if-eqz v0, :offline_return
++    invoke-super {p0, p1}, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V
++    :offline_return
++    return-void
++.end method
++
++.method public startActivityForResult(Landroid/content/Intent;I)V
++    .locals 2
++    invoke-virtual {p1}, Landroid/content/Intent;->getComponent()Landroid/content/ComponentName;
++    move-result-object v0
++    if-eqz v0, :offline_return
++    invoke-virtual {v0}, Landroid/content/ComponentName;->getPackageName()Ljava/lang/String;
++    move-result-object v0
++    invoke-virtual {p0}, Lcom/Paladog/KorGG/Paladog;->getPackageName()Ljava/lang/String;
++    move-result-object v1
++    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
++    move-result v0
++    if-eqz v0, :offline_return
++    invoke-super {p0, p1, p2}, Landroid/app/Activity;->startActivityForResult(Landroid/content/Intent;I)V
++    :offline_return
++    return-void
++.end method
+--- original/smali/com/SPC/LoadingLayer.smali
++++ patched/smali/com/SPC/LoadingLayer.smali
+@@ -2552,748 +2552,19 @@
+     .end local v13    # "lc_pDIT":Lcom/my/DB/DBInfoT;
+     .end local v14    # "lc_strN":Ljava/lang/String;
+     :cond_c
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x1e
+-
+-    if-ne v1, v3, :cond_d
+-
+-    .line 495
+-    invoke-static {}, Lorg/cocos2d/nodes/CCSpriteFrameCache;->sharedSpriteFrameCache()Lorg/cocos2d/nodes/CCSpriteFrameCache;
+-
+-    move-result-object v1
+-
+-    const-string v3, "naver_agree.plist"
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCSpriteFrameCache;->addSpriteFrames(Ljava/lang/String;)Ljava/util/Set;
+-
+-    .line 496
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v2, 0x7d0
+-
+-    const/4 v3, 0x0
+-
+-    const/high16 v4, 0x43700000    # 240.0f
+-
+-    const/high16 v5, 0x43200000    # 160.0f
+-
+-    const/high16 v6, 0x437a0000    # 250.0f
+-
+-    const-string v7, "naver_agree_bg.png"
+-
+-    const-string v8, ""
+-
+-    const-string v9, ""
+-
+-    move-object/from16 v10, p0
+-
+-    invoke-virtual/range {v1 .. v10}, Lcom/my/UI/UIManager;->AddUI(IIFFFLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/cocos2d/layers/CCLayer;)V
+-
+-    .line 497
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v2, 0x3ee
+-
++    # Both consent screens and their registration requests are removed.
++    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
++    move-result-object v1
++    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
++    iget v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
++    const/16 v4, 0x1e
++    if-lt v3, v4, :cond_12
++    const/16 v4, 0x25
++    if-gt v3, v4, :cond_12
+     const/4 v3, 0x1
+-
+-    const/high16 v4, 0x43700000    # 240.0f
+-
+-    const/high16 v5, 0x43200000    # 160.0f
+-
+-    const/high16 v6, 0x437a0000    # 250.0f
+-
+-    const-string v7, "naver_agree_btn_up.png"
+-
+-    const-string v8, "naver_agree_btn_down.png"
+-
+-    const-string v9, ""
+-
+-    move-object/from16 v10, p0
+-
+-    invoke-virtual/range {v1 .. v10}, Lcom/my/UI/UIManager;->AddUI2(IIFFFLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/cocos2d/layers/CCLayer;)V
+-
+-    .line 498
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v2, 0x3ef
+-
+-    const/4 v3, 0x1
+-
+-    const/high16 v4, 0x43700000    # 240.0f
+-
+-    const/high16 v5, 0x43200000    # 160.0f
+-
+-    const/high16 v6, 0x437a0000    # 250.0f
+-
+-    const-string v7, "naver_cancel_btn_up.png"
+-
+-    const-string v8, "naver_cancel_btn_down.png"
+-
+-    const-string v9, ""
+-
+-    move-object/from16 v10, p0
+-
+-    invoke-virtual/range {v1 .. v10}, Lcom/my/UI/UIManager;->AddUI2(IIFFFLjava/lang/String;Ljava/lang/String;Ljava/lang/String;Lorg/cocos2d/layers/CCLayer;)V
+-
+-    .line 500
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x7d0
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    .line 501
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x3ee
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    .line 502
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x3ef
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    .line 504
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/16 v3, 0x1f
+-
+     iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+     goto/16 :goto_0
+ 
+-    .line 553
+-    :cond_d
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x20
+-
+-    if-ne v1, v3, :cond_e
+-
+-    .line 555
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/16 v3, 0x21
+-
+-    iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 557
+-    :cond_e
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x21
+-
+-    if-ne v1, v3, :cond_f
+-
+-    .line 560
+-    new-instance v1, Ljava/lang/StringBuilder;
+-
+-    sget-object v3, Lcom/SPC/SP;->SERVER_ADDRESS_CERTIFY:Ljava/lang/String;
+-
+-    invoke-static {v3}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v3
+-
+-    invoke-direct {v1, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    .line 561
+-    const-string v3, "?hs_PhoneNumer="
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 562
+-    const-string v3, "&hs_PhoneModel="
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneModel:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 563
+-    const-string v3, "&hs_AppVersion="
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strAppVersion:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 564
+-    const-string v3, "&hs_Kind="
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneSKT:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 560
+-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v15
+-
+-    .line 566
+-    .local v15, "url":Ljava/lang/String;
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_lib:Lcom/common/Library;
+-
+-    invoke-virtual {v1, v15}, Lcom/common/Library;->DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-
+-    .line 567
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v3, 0x1
+-
+-    iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 569
+-    .end local v15    # "url":Ljava/lang/String;
+-    :cond_f
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x22
+-
+-    if-ne v1, v3, :cond_10
+-
+-    .line 571
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/16 v3, 0x23
+-
+-    iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    .line 573
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v3, 0x0
+-
+-    const-string v4, "\uacbd\ud488 \ubc0f \ud560\uc778 \uc774\ubca4\ud2b8 \ub4f1 \ub2e4\uc591\ud55c \ud61c\ud0dd\uc774 \uc81c\uacf5\ub418\ub294"
+-
+-    aput-object v4, v1, v3
+-
+-    .line 574
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v3, 0x1
+-
+-    const-string v4, "SMS \uc218\uc2e0\uc744 \ub3d9\uc758\ud558\uc2dc\uaca0\uc2b5\ub2c8\uae4c?"
+-
+-    aput-object v4, v1, v3
+-
+-    .line 575
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v3, 0x2
+-
+-    const-string v4, "(\uc774\uc678\uc758 \ubaa9\uc801\uc73c\ub85c \uc0ac\uc6a9\ub418\uac70\ub098 \uc784\uc758\ub85c \ud0c0\uc0ac\uc5d0"
+-
+-    aput-object v4, v1, v3
+-
+-    .line 576
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v3, 0x3
+-
+-    const-string v4, "\uc815\ubcf4\ub97c \uc81c\uacf5\ud558\uc9c0 \uc54a\uc2b5\ub2c8\ub2e4.)"
+-
+-    aput-object v4, v1, v3
+-
+-    .line 577
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x0
+-
+-    aget-object v1, v1, v3
+-
+-    move-object/from16 v0, p0
+-
+-    iget-object v3, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v4, 0x0
+-
+-    aget-object v3, v3, v4
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setString(Ljava/lang/CharSequence;)V
+-
+-    .line 578
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x0
+-
+-    aget-object v1, v1, v3
+-
+-    const/high16 v3, 0x43700000    # 240.0f
+-
+-    const/high16 v4, 0x43520000    # 210.0f
+-
+-    invoke-static {v3, v4}, Lorg/cocos2d/types/CGPoint;->ccp(FF)Lorg/cocos2d/types/CGPoint;
+-
+-    move-result-object v3
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setPosition(Lorg/cocos2d/types/CGPoint;)V
+-
+-    .line 579
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x0
+-
+-    aget-object v1, v1, v3
+-
+-    const/4 v3, 0x1
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setVisible(Z)V
+-
+-    .line 581
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x1
+-
+-    aget-object v1, v1, v3
+-
+-    move-object/from16 v0, p0
+-
+-    iget-object v3, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v4, 0x1
+-
+-    aget-object v3, v3, v4
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setString(Ljava/lang/CharSequence;)V
+-
+-    .line 582
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x1
+-
+-    aget-object v1, v1, v3
+-
+-    const/high16 v3, 0x43700000    # 240.0f
+-
+-    const/high16 v4, 0x433e0000    # 190.0f
+-
+-    invoke-static {v3, v4}, Lorg/cocos2d/types/CGPoint;->ccp(FF)Lorg/cocos2d/types/CGPoint;
+-
+-    move-result-object v3
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setPosition(Lorg/cocos2d/types/CGPoint;)V
+-
+-    .line 583
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x1
+-
+-    aget-object v1, v1, v3
+-
+-    const/4 v3, 0x1
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setVisible(Z)V
+-
+-    .line 585
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x2
+-
+-    aget-object v1, v1, v3
+-
+-    move-object/from16 v0, p0
+-
+-    iget-object v3, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v4, 0x2
+-
+-    aget-object v3, v3, v4
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setString(Ljava/lang/CharSequence;)V
+-
+-    .line 586
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x2
+-
+-    aget-object v1, v1, v3
+-
+-    const/high16 v3, 0x43700000    # 240.0f
+-
+-    const/high16 v4, 0x432a0000    # 170.0f
+-
+-    invoke-static {v3, v4}, Lorg/cocos2d/types/CGPoint;->ccp(FF)Lorg/cocos2d/types/CGPoint;
+-
+-    move-result-object v3
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setPosition(Lorg/cocos2d/types/CGPoint;)V
+-
+-    .line 587
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x2
+-
+-    aget-object v1, v1, v3
+-
+-    const/4 v3, 0x1
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setVisible(Z)V
+-
+-    .line 589
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x3
+-
+-    aget-object v1, v1, v3
+-
+-    move-object/from16 v0, p0
+-
+-    iget-object v3, v0, Lcom/SPC/LoadingLayer;->resMsg:[Ljava/lang/String;
+-
+-    const/4 v4, 0x3
+-
+-    aget-object v3, v3, v4
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setString(Ljava/lang/CharSequence;)V
+-
+-    .line 590
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x3
+-
+-    aget-object v1, v1, v3
+-
+-    const/high16 v3, 0x43700000    # 240.0f
+-
+-    const/high16 v4, 0x43160000    # 150.0f
+-
+-    invoke-static {v3, v4}, Lorg/cocos2d/types/CGPoint;->ccp(FF)Lorg/cocos2d/types/CGPoint;
+-
+-    move-result-object v3
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setPosition(Lorg/cocos2d/types/CGPoint;)V
+-
+-    .line 591
+-    move-object/from16 v0, p0
+-
+-    iget-object v1, v0, Lcom/SPC/LoadingLayer;->m_lbMsgboxText:[Lorg/cocos2d/nodes/CCLabel;
+-
+-    const/4 v3, 0x3
+-
+-    aget-object v1, v1, v3
+-
+-    const/4 v3, 0x1
+-
+-    invoke-virtual {v1, v3}, Lorg/cocos2d/nodes/CCLabel;->setVisible(Z)V
+-
+-    .line 593
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x3e8
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    .line 594
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x3ea
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    .line 595
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v3, 0x3eb
+-
+-    const/4 v4, 0x0
+-
+-    invoke-virtual {v1, v3, v4}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
+-
+-    goto/16 :goto_0
+-
+-    .line 597
+-    :cond_10
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x24
+-
+-    if-ne v1, v3, :cond_11
+-
+-    .line 599
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/16 v3, 0x25
+-
+-    iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 601
+-    :cond_11
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    const/16 v3, 0x25
+-
+-    if-ne v1, v3, :cond_12
+-
+-    .line 612
+-    new-instance v1, Ljava/lang/StringBuilder;
+-
+-    const-string v3, "http://www.zamburgers.com:9001/realgames/marketing/attestation/smart/DB_process.php?p=1&g=A02&t="
+-
+-    invoke-direct {v1, v3}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    .line 613
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneSKT:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 614
+-    const-string v3, "&h="
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v3, v3, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 615
+-    const-string v3, "&s=y"
+-
+-    invoke-virtual {v1, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v1
+-
+-    .line 612
+-    invoke-virtual {v1}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v15
+-
+-    .line 617
+-    .restart local v15    # "url":Ljava/lang/String;
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->m_lib:Lcom/common/Library;
+-
+-    invoke-virtual {v1, v15}, Lcom/common/Library;->DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-
+-    .line 618
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v1, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v3, 0x1
+-
+-    iput v3, v1, Lcom/my/Struct/GAMEINFO;->gmGameMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 620
+-    .end local v15    # "url":Ljava/lang/String;
+     :cond_12
+     invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+ 
+--- original/smali/com/common/Library.smali
++++ patched/smali/com/common/Library.smali
+@@ -485,300 +485,15 @@
+ .end method
+ 
+ .method public DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-    .locals 8
+-    .param p1, "addr"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 395
+-    new-instance v3, Ljava/lang/StringBuilder;
+-
+-    invoke-direct {v3}, Ljava/lang/StringBuilder;-><init>()V
+-
+-    .line 397
+-    .local v3, "html":Ljava/lang/StringBuilder;
+-    :try_start_0
+-    new-instance v5, Ljava/net/URL;
+-
+-    invoke-direct {v5, p1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+-
+-    .line 398
+-    .local v5, "url":Ljava/net/URL;
+-    invoke-virtual {v5}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+-
+-    move-result-object v1
+-
+-    check-cast v1, Ljava/net/HttpURLConnection;
+-
+-    .line 399
+-    .local v1, "conn":Ljava/net/HttpURLConnection;
+-    if-eqz v1, :cond_1
+-
+-    .line 400
+-    const/16 v6, 0x9c4
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
+-
+-    .line 401
+-    const/16 v6, 0x9c4
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setReadTimeout(I)V
+-
+-    .line 402
+-    const/4 v6, 0x0
+-
+-    invoke-virtual {v1, v6}, Ljava/net/HttpURLConnection;->setUseCaches(Z)V
+-
+-    .line 403
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getResponseCode()I
+-
+-    move-result v6
+-
+-    const/16 v7, 0xc8
+-
+-    if-ne v6, v7, :cond_0
+-
+-    .line 405
+-    new-instance v0, Ljava/io/BufferedReader;
+-
+-    new-instance v6, Ljava/io/InputStreamReader;
+-
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
+-
+-    move-result-object v7
+-
+-    invoke-direct {v6, v7}, Ljava/io/InputStreamReader;-><init>(Ljava/io/InputStream;)V
+-
+-    invoke-direct {v0, v6}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+-
+-    .line 407
+-    .local v0, "br":Ljava/io/BufferedReader;
+-    :goto_0
+-    invoke-virtual {v0}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+-
+-    move-result-object v4
+-
+-    .line 408
+-    .local v4, "line":Ljava/lang/String;
+-    if-nez v4, :cond_2
+-
+-    .line 411
+-    invoke-virtual {v0}, Ljava/io/BufferedReader;->close()V
+-
+-    .line 413
+-    .end local v0    # "br":Ljava/io/BufferedReader;
+-    .end local v4    # "line":Ljava/lang/String;
+-    :cond_0
+-    invoke-virtual {v1}, Ljava/net/HttpURLConnection;->disconnect()V
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    .line 420
+-    :cond_1
+-    invoke-virtual {v3}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v6
+-
+-    .end local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .end local v5    # "url":Ljava/net/URL;
+-    :goto_1
+-    return-object v6
+-
+-    .line 409
+-    .restart local v0    # "br":Ljava/io/BufferedReader;
+-    .restart local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .restart local v4    # "line":Ljava/lang/String;
+-    .restart local v5    # "url":Ljava/net/URL;
+-    :cond_2
+-    :try_start_1
+-    new-instance v6, Ljava/lang/StringBuilder;
+-
+-    invoke-static {v4}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v7
+-
+-    invoke-direct {v6, v7}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    const/16 v7, 0xa
+-
+-    invoke-virtual {v6, v7}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+-
+-    move-result-object v6
+-
+-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v6
+-
+-    invoke-virtual {v3, v6}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-    :try_end_1
+-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+-
+-    goto :goto_0
+-
+-    .line 416
+-    .end local v0    # "br":Ljava/io/BufferedReader;
+-    .end local v1    # "conn":Ljava/net/HttpURLConnection;
+-    .end local v4    # "line":Ljava/lang/String;
+-    .end local v5    # "url":Ljava/net/URL;
+-    :catch_0
+-    move-exception v2
+-
+-    .line 418
+-    .local v2, "ex":Ljava/lang/Exception;
+-    const/4 v6, 0x0
+-
+-    goto :goto_1
++    .locals 1
++    const/4 v0, 0x0
++    return-object v0
+ .end method
+ 
+ .method public DownloadHtml_Apache(Ljava/lang/String;)Ljava/lang/String;
+-    .locals 10
+-    .param p1, "addr"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 426
+-    const/16 v8, 0x20
+-
+-    const/16 v9, 0x5f
+-
+-    invoke-virtual {p1, v8, v9}, Ljava/lang/String;->replace(CC)Ljava/lang/String;
+-
+-    move-result-object v3
+-
+-    .line 428
+-    .local v3, "addr1":Ljava/lang/String;
+-    const/4 v2, 0x0
+-
+-    .line 429
+-    .local v2, "UC":Ljava/net/HttpURLConnection;
+-    new-instance v6, Ljava/lang/StringBuilder;
+-
+-    invoke-direct {v6}, Ljava/lang/StringBuilder;-><init>()V
+-
+-    .line 433
+-    .local v6, "html":Ljava/lang/StringBuilder;
+-    :try_start_0
+-    new-instance v1, Ljava/net/URL;
+-
+-    invoke-direct {v1, v3}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+-
+-    .line 434
+-    .local v1, "U":Ljava/net/URL;
+-    invoke-virtual {v1}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+-
+-    move-result-object v8
+-
+-    move-object v0, v8
+-
+-    check-cast v0, Ljava/net/HttpURLConnection;
+-
+-    move-object v2, v0
+-
+-    .line 435
+-    const/16 v8, 0x4e20
+-
+-    invoke-virtual {v2, v8}, Ljava/net/HttpURLConnection;->setConnectTimeout(I)V
+-
+-    .line 436
+-    const/4 v8, 0x0
+-
+-    invoke-virtual {v2, v8}, Ljava/net/HttpURLConnection;->setUseCaches(Z)V
+-
+-    .line 437
+-    const/4 v8, 0x1
+-
+-    invoke-virtual {v2, v8}, Ljava/net/HttpURLConnection;->setDoInput(Z)V
+-
+-    .line 441
+-    invoke-virtual {v2}, Ljava/net/HttpURLConnection;->getResponseCode()I
+-
+-    move-result v8
+-
+-    const/16 v9, 0xc8
+-
+-    if-ne v8, v9, :cond_0
+-
+-    .line 443
+-    new-instance v4, Ljava/io/BufferedReader;
+-
+-    new-instance v8, Ljava/io/InputStreamReader;
+-
+-    invoke-virtual {v2}, Ljava/net/HttpURLConnection;->getInputStream()Ljava/io/InputStream;
+-
+-    move-result-object v9
+-
+-    invoke-direct {v8, v9}, Ljava/io/InputStreamReader;-><init>(Ljava/io/InputStream;)V
+-
+-    invoke-direct {v4, v8}, Ljava/io/BufferedReader;-><init>(Ljava/io/Reader;)V
+-
+-    .line 446
+-    .local v4, "br":Ljava/io/BufferedReader;
+-    :goto_0
+-    invoke-virtual {v4}, Ljava/io/BufferedReader;->readLine()Ljava/lang/String;
+-
+-    move-result-object v7
+-
+-    .line 447
+-    .local v7, "line":Ljava/lang/String;
+-    if-nez v7, :cond_1
+-
+-    .line 450
+-    invoke-virtual {v4}, Ljava/io/BufferedReader;->close()V
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    .line 457
+-    .end local v4    # "br":Ljava/io/BufferedReader;
+-    .end local v7    # "line":Ljava/lang/String;
+-    :cond_0
+-    invoke-virtual {v6}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v8
+-
+-    .end local v1    # "U":Ljava/net/URL;
+-    :goto_1
+-    return-object v8
+-
+-    .line 448
+-    .restart local v1    # "U":Ljava/net/URL;
+-    .restart local v4    # "br":Ljava/io/BufferedReader;
+-    .restart local v7    # "line":Ljava/lang/String;
+-    :cond_1
+-    :try_start_1
+-    new-instance v8, Ljava/lang/StringBuilder;
+-
+-    invoke-static {v7}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v9
+-
+-    invoke-direct {v8, v9}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    const/16 v9, 0xa
+-
+-    invoke-virtual {v8, v9}, Ljava/lang/StringBuilder;->append(C)Ljava/lang/StringBuilder;
+-
+-    move-result-object v8
+-
+-    invoke-virtual {v8}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v8
+-
+-    invoke-virtual {v6, v8}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-    :try_end_1
+-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_0
+-
+-    goto :goto_0
+-
+-    .line 453
+-    .end local v1    # "U":Ljava/net/URL;
+-    .end local v4    # "br":Ljava/io/BufferedReader;
+-    .end local v7    # "line":Ljava/lang/String;
+-    :catch_0
+-    move-exception v5
+-
+-    .line 455
+-    .local v5, "e":Ljava/lang/Exception;
+-    const/4 v8, 0x0
+-
+-    goto :goto_1
++    .locals 1
++    const/4 v0, 0x0
++    return-object v0
+ .end method
+ 
+ .method public EncodeData()J
+@@ -1000,999 +715,18 @@
+ .end method
+ 
+ .method public GetServerXML(I)V
+-    .locals 9
+-    .param p1, "iIdx"    # I
+-
+-    .prologue
+-    const/4 v8, 0x2
+-
+-    const/4 v7, 0x1
+-
+-    const/4 v6, 0x0
+-
+-    .line 796
+-    const-string v2, ""
+-
+-    .line 797
+-    .local v2, "urlPath":Ljava/lang/String;
+-    const-string v0, ""
+-
+-    .line 800
+-    .local v0, "strFileName":Ljava/lang/String;
+-    const-string v3, "http://%s/ClientFile"
+-
+-    new-array v4, v7, [Ljava/lang/Object;
+-
+-    const-string v5, "game.paladog.net"
+-
+-    aput-object v5, v4, v6
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v1
+-
+-    .line 801
+-    .local v1, "strFolderName":Ljava/lang/String;
+-    const/4 v3, 0x7
+-
+-    if-gt p1, v3, :cond_1
+-
+-    .line 803
+-    const-string v3, "%s%d"
+-
+-    new-array v4, v8, [Ljava/lang/Object;
+-
+-    const-string v5, "PDWXMLSlot"
+-
+-    aput-object v5, v4, v6
+-
+-    invoke-static {p1}, Ljava/lang/Integer;->valueOf(I)Ljava/lang/Integer;
+-
+-    move-result-object v5
+-
+-    aput-object v5, v4, v7
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v0
+-
+-    .line 817
+-    :cond_0
+-    :goto_0
+-    const-string v3, "%s/%s_%s"
+-
+-    const/4 v4, 0x3
+-
+-    new-array v4, v4, [Ljava/lang/Object;
+-
+-    aput-object v1, v4, v6
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v5
+-
+-    iget-object v5, v5, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    iget-object v5, v5, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+-
+-    aput-object v5, v4, v7
+-
+-    aput-object v0, v4, v8
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v2
+-
+-    .line 818
+-    invoke-virtual {p0, v2, v0}, Lcom/common/Library;->HttpFileDownload(Ljava/lang/String;Ljava/lang/String;)V
+-
+-    .line 819
++    .locals 0
+     return-void
+-
+-    .line 805
+-    :cond_1
+-    const/16 v3, 0x8
+-
+-    if-ne p1, v3, :cond_2
+-
+-    .line 807
+-    const-string v3, "%s"
+-
+-    new-array v4, v7, [Ljava/lang/Object;
+-
+-    const-string v5, "PDWXMLInfo"
+-
+-    aput-object v5, v4, v6
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v0
+-
+-    .line 808
+-    goto :goto_0
+-
+-    .line 809
+-    :cond_2
+-    const/16 v3, 0x9
+-
+-    if-ne p1, v3, :cond_3
+-
+-    .line 811
+-    const-string v3, "%s"
+-
+-    new-array v4, v7, [Ljava/lang/Object;
+-
+-    const-string v5, "PDWXMLBattle"
+-
+-    aput-object v5, v4, v6
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v0
+-
+-    .line 812
+-    goto :goto_0
+-
+-    .line 813
+-    :cond_3
+-    const/16 v3, 0xa
+-
+-    if-ne p1, v3, :cond_0
+-
+-    .line 815
+-    const-string v3, "%s"
+-
+-    new-array v4, v7, [Ljava/lang/Object;
+-
+-    const-string v5, "PDWXMLLocalRank"
+-
+-    aput-object v5, v4, v6
+-
+-    invoke-static {v3, v4}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v0
+-
+-    goto :goto_0
+ .end method
+ 
+ .method public HttpFileDownload(Ljava/lang/String;Ljava/lang/String;)V
+-    .locals 13
+-    .param p1, "urlPath"    # Ljava/lang/String;
+-    .param p2, "strFileName"    # Ljava/lang/String;
+-
+-    .prologue
+-    const/4 v12, 0x0
+-
+-    .line 822
+-    const-string v9, "data/data/%s/shared_prefs/%s.xml"
+-
+-    const/4 v10, 0x2
+-
+-    new-array v10, v10, [Ljava/lang/Object;
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v11
+-
+-    iget-object v11, v11, Lcom/common/AppDelegate;->m_Paladog:Lcom/Paladog/KorGG/Paladog;
+-
+-    iget-object v11, v11, Lcom/Paladog/KorGG/Paladog;->m_PackageName:Ljava/lang/String;
+-
+-    aput-object v11, v10, v12
+-
+-    const/4 v11, 0x1
+-
+-    aput-object p2, v10, v11
+-
+-    invoke-static {v9, v10}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v5
+-
+-    .line 823
+-    .local v5, "pathToOurFile":Ljava/lang/String;
+-    const/4 v2, 0x0
+-
+-    .line 824
+-    .local v2, "fos":Ljava/io/FileOutputStream;
+-    const/4 v4, 0x0
+-
+-    .line 826
+-    .local v4, "is":Ljava/io/InputStream;
+-    :try_start_0
+-    new-instance v3, Ljava/io/FileOutputStream;
+-
+-    invoke-direct {v3, v5}, Ljava/io/FileOutputStream;-><init>(Ljava/lang/String;)V
+-    :try_end_0
+-    .catch Ljava/io/FileNotFoundException; {:try_start_0 .. :try_end_0} :catch_a
+-    .catch Ljava/net/MalformedURLException; {:try_start_0 .. :try_end_0} :catch_2
+-    .catch Ljava/io/IOException; {:try_start_0 .. :try_end_0} :catch_4
+-    .catchall {:try_start_0 .. :try_end_0} :catchall_0
+-
+-    .line 827
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .local v3, "fos":Ljava/io/FileOutputStream;
+-    :try_start_1
+-    new-instance v7, Ljava/net/URL;
+-
+-    invoke-direct {v7, p1}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+-
+-    .line 828
+-    .local v7, "url":Ljava/net/URL;
+-    invoke-virtual {v7}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+-
+-    move-result-object v8
+-
+-    .line 829
+-    .local v8, "urlConnection":Ljava/net/URLConnection;
+-    invoke-virtual {v8}, Ljava/net/URLConnection;->getInputStream()Ljava/io/InputStream;
+-
+-    move-result-object v4
+-
+-    .line 830
+-    const/16 v9, 0x400
+-
+-    new-array v0, v9, [B
+-
+-    .line 832
+-    .local v0, "buffer":[B
+-    :goto_0
+-    invoke-virtual {v4, v0}, Ljava/io/InputStream;->read([B)I
+-    :try_end_1
+-    .catch Ljava/io/FileNotFoundException; {:try_start_1 .. :try_end_1} :catch_0
+-    .catch Ljava/net/MalformedURLException; {:try_start_1 .. :try_end_1} :catch_9
+-    .catch Ljava/io/IOException; {:try_start_1 .. :try_end_1} :catch_8
+-    .catchall {:try_start_1 .. :try_end_1} :catchall_1
+-
+-    move-result v6
+-
+-    .local v6, "readBytes":I
+-    const/4 v9, -0x1
+-
+-    if-ne v6, v9, :cond_2
+-
+-    .line 844
+-    if-eqz v3, :cond_0
+-
+-    .line 846
+-    :try_start_2
+-    invoke-virtual {v3}, Ljava/io/FileOutputStream;->close()V
+-
+-    .line 848
+-    :cond_0
+-    if-eqz v4, :cond_8
+-
+-    .line 850
+-    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+-    :try_end_2
+-    .catch Ljava/io/IOException; {:try_start_2 .. :try_end_2} :catch_7
+-
+-    move-object v2, v3
+-
+-    .line 854
+-    .end local v0    # "buffer":[B
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .end local v6    # "readBytes":I
+-    .end local v7    # "url":Ljava/net/URL;
+-    .end local v8    # "urlConnection":Ljava/net/URLConnection;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    :cond_1
+-    :goto_1
++    .locals 0
+     return-void
+-
+-    .line 834
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v0    # "buffer":[B
+-    .restart local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v6    # "readBytes":I
+-    .restart local v7    # "url":Ljava/net/URL;
+-    .restart local v8    # "urlConnection":Ljava/net/URLConnection;
+-    :cond_2
+-    const/4 v9, 0x0
+-
+-    :try_start_3
+-    invoke-virtual {v3, v0, v9, v6}, Ljava/io/FileOutputStream;->write([BII)V
+-    :try_end_3
+-    .catch Ljava/io/FileNotFoundException; {:try_start_3 .. :try_end_3} :catch_0
+-    .catch Ljava/net/MalformedURLException; {:try_start_3 .. :try_end_3} :catch_9
+-    .catch Ljava/io/IOException; {:try_start_3 .. :try_end_3} :catch_8
+-    .catchall {:try_start_3 .. :try_end_3} :catchall_1
+-
+-    goto :goto_0
+-
+-    .line 837
+-    .end local v0    # "buffer":[B
+-    .end local v6    # "readBytes":I
+-    .end local v7    # "url":Ljava/net/URL;
+-    .end local v8    # "urlConnection":Ljava/net/URLConnection;
+-    :catch_0
+-    move-exception v1
+-
+-    move-object v2, v3
+-
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .local v1, "e":Ljava/io/FileNotFoundException;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    :goto_2
+-    :try_start_4
+-    invoke-virtual {v1}, Ljava/io/FileNotFoundException;->printStackTrace()V
+-    :try_end_4
+-    .catchall {:try_start_4 .. :try_end_4} :catchall_0
+-
+-    .line 844
+-    if-eqz v2, :cond_3
+-
+-    .line 846
+-    :try_start_5
+-    invoke-virtual {v2}, Ljava/io/FileOutputStream;->close()V
+-
+-    .line 848
+-    :cond_3
+-    if-eqz v4, :cond_1
+-
+-    .line 850
+-    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+-    :try_end_5
+-    .catch Ljava/io/IOException; {:try_start_5 .. :try_end_5} :catch_1
+-
+-    goto :goto_1
+-
+-    .line 852
+-    :catch_1
+-    move-exception v1
+-
+-    .local v1, "e":Ljava/io/IOException;
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-
+-    goto :goto_1
+-
+-    .line 838
+-    .end local v1    # "e":Ljava/io/IOException;
+-    :catch_2
+-    move-exception v1
+-
+-    .local v1, "e":Ljava/net/MalformedURLException;
+-    :goto_3
+-    :try_start_6
+-    invoke-virtual {v1}, Ljava/net/MalformedURLException;->printStackTrace()V
+-    :try_end_6
+-    .catchall {:try_start_6 .. :try_end_6} :catchall_0
+-
+-    .line 844
+-    if-eqz v2, :cond_4
+-
+-    .line 846
+-    :try_start_7
+-    invoke-virtual {v2}, Ljava/io/FileOutputStream;->close()V
+-
+-    .line 848
+-    :cond_4
+-    if-eqz v4, :cond_1
+-
+-    .line 850
+-    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+-    :try_end_7
+-    .catch Ljava/io/IOException; {:try_start_7 .. :try_end_7} :catch_3
+-
+-    goto :goto_1
+-
+-    .line 852
+-    :catch_3
+-    move-exception v1
+-
+-    .local v1, "e":Ljava/io/IOException;
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-
+-    goto :goto_1
+-
+-    .line 839
+-    .end local v1    # "e":Ljava/io/IOException;
+-    :catch_4
+-    move-exception v1
+-
+-    .restart local v1    # "e":Ljava/io/IOException;
+-    :goto_4
+-    :try_start_8
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-    :try_end_8
+-    .catchall {:try_start_8 .. :try_end_8} :catchall_0
+-
+-    .line 844
+-    if-eqz v2, :cond_5
+-
+-    .line 846
+-    :try_start_9
+-    invoke-virtual {v2}, Ljava/io/FileOutputStream;->close()V
+-
+-    .line 848
+-    :cond_5
+-    if-eqz v4, :cond_1
+-
+-    .line 850
+-    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+-    :try_end_9
+-    .catch Ljava/io/IOException; {:try_start_9 .. :try_end_9} :catch_5
+-
+-    goto :goto_1
+-
+-    .line 852
+-    :catch_5
+-    move-exception v1
+-
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-
+-    goto :goto_1
+-
+-    .line 841
+-    .end local v1    # "e":Ljava/io/IOException;
+-    :catchall_0
+-    move-exception v9
+-
+-    .line 844
+-    :goto_5
+-    if-eqz v2, :cond_6
+-
+-    .line 846
+-    :try_start_a
+-    invoke-virtual {v2}, Ljava/io/FileOutputStream;->close()V
+-
+-    .line 848
+-    :cond_6
+-    if-eqz v4, :cond_7
+-
+-    .line 850
+-    invoke-virtual {v4}, Ljava/io/InputStream;->close()V
+-    :try_end_a
+-    .catch Ljava/io/IOException; {:try_start_a .. :try_end_a} :catch_6
+-
+-    .line 853
+-    :cond_7
+-    :goto_6
+-    throw v9
+-
+-    .line 852
+-    :catch_6
+-    move-exception v1
+-
+-    .restart local v1    # "e":Ljava/io/IOException;
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-
+-    goto :goto_6
+-
+-    .end local v1    # "e":Ljava/io/IOException;
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v0    # "buffer":[B
+-    .restart local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v6    # "readBytes":I
+-    .restart local v7    # "url":Ljava/net/URL;
+-    .restart local v8    # "urlConnection":Ljava/net/URLConnection;
+-    :catch_7
+-    move-exception v1
+-
+-    .restart local v1    # "e":Ljava/io/IOException;
+-    invoke-virtual {v1}, Ljava/io/IOException;->printStackTrace()V
+-
+-    .end local v1    # "e":Ljava/io/IOException;
+-    :cond_8
+-    move-object v2, v3
+-
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    goto :goto_1
+-
+-    .line 841
+-    .end local v0    # "buffer":[B
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .end local v6    # "readBytes":I
+-    .end local v7    # "url":Ljava/net/URL;
+-    .end local v8    # "urlConnection":Ljava/net/URLConnection;
+-    .restart local v3    # "fos":Ljava/io/FileOutputStream;
+-    :catchall_1
+-    move-exception v9
+-
+-    move-object v2, v3
+-
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    goto :goto_5
+-
+-    .line 839
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v3    # "fos":Ljava/io/FileOutputStream;
+-    :catch_8
+-    move-exception v1
+-
+-    move-object v2, v3
+-
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    goto :goto_4
+-
+-    .line 838
+-    .end local v2    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v3    # "fos":Ljava/io/FileOutputStream;
+-    :catch_9
+-    move-exception v1
+-
+-    move-object v2, v3
+-
+-    .end local v3    # "fos":Ljava/io/FileOutputStream;
+-    .restart local v2    # "fos":Ljava/io/FileOutputStream;
+-    goto :goto_3
+-
+-    .line 837
+-    :catch_a
+-    move-exception v1
+-
+-    goto :goto_2
+ .end method
+ 
+ .method public HttpFileUpload(Ljava/lang/String;Ljava/lang/String;)V
+-    .locals 25
+-    .param p1, "ServerName"    # Ljava/lang/String;
+-    .param p2, "strFileName"    # Ljava/lang/String;
+-
+-    .prologue
+-    .line 724
+-    const/4 v8, 0x0
+-
+-    .line 725
+-    .local v8, "connection":Ljava/net/HttpURLConnection;
+-    const/4 v13, 0x0
+-
+-    .line 726
+-    .local v13, "outputStream":Ljava/io/DataOutputStream;
+-    const/4 v10, 0x0
+-
+-    .line 728
+-    .local v10, "inputStream":Ljava/io/DataInputStream;
+-    const-string v21, "data/data/%s/shared_prefs/%s.xml"
+-
+-    const/16 v22, 0x2
+-
+-    move/from16 v0, v22
+-
+-    new-array v0, v0, [Ljava/lang/Object;
+-
+-    move-object/from16 v22, v0
+-
+-    const/16 v23, 0x0
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v24
+-
+-    move-object/from16 v0, v24
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->m_Paladog:Lcom/Paladog/KorGG/Paladog;
+-
+-    move-object/from16 v24, v0
+-
+-    move-object/from16 v0, v24
+-
+-    iget-object v0, v0, Lcom/Paladog/KorGG/Paladog;->m_PackageName:Ljava/lang/String;
+-
+-    move-object/from16 v24, v0
+-
+-    aput-object v24, v22, v23
+-
+-    const/16 v23, 0x1
+-
+-    aput-object p2, v22, v23
+-
+-    invoke-static/range {v21 .. v22}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v15
+-
+-    .line 729
+-    .local v15, "pathToOurFile":Ljava/lang/String;
+-    move-object/from16 v20, p1
+-
+-    .line 730
+-    .local v20, "urlServer":Ljava/lang/String;
+-    const-string v11, "\r\n"
+-
+-    .line 731
+-    .local v11, "lineEnd":Ljava/lang/String;
+-    const-string v18, "--"
+-
+-    .line 732
+-    .local v18, "twoHyphens":Ljava/lang/String;
+-    const-string v3, "---CTQCTQ---"
+-
+-    .line 735
+-    .local v3, "boundary":Ljava/lang/String;
+-    const-string v21, "%s_%s"
+-
+-    const/16 v22, 0x2
+-
+-    move/from16 v0, v22
+-
+-    new-array v0, v0, [Ljava/lang/Object;
+-
+-    move-object/from16 v22, v0
+-
+-    const/16 v23, 0x0
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v24
+-
+-    move-object/from16 v0, v24
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GISavedAndroid:Lcom/my/Struct/ANDROIDSAVEINFO;
+-
+-    move-object/from16 v24, v0
+-
+-    move-object/from16 v0, v24
+-
+-    iget-object v0, v0, Lcom/my/Struct/ANDROIDSAVEINFO;->strPhoneNum:Ljava/lang/String;
+-
+-    move-object/from16 v24, v0
+-
+-    aput-object v24, v22, v23
+-
+-    const/16 v23, 0x1
+-
+-    aput-object p2, v22, v23
+-
+-    invoke-static/range {v21 .. v22}, Ljava/lang/String;->format(Ljava/lang/String;[Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v2
+-
+-    .line 739
+-    .local v2, "FullpathToOurFile":Ljava/lang/String;
+-    const/high16 v12, 0x100000
+-
+-    .line 743
+-    .local v12, "maxBufferSize":I
+-    :try_start_0
+-    new-instance v9, Ljava/io/FileInputStream;
+-
+-    new-instance v21, Ljava/io/File;
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-direct {v0, v15}, Ljava/io/File;-><init>(Ljava/lang/String;)V
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-direct {v9, v0}, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V
+-
+-    .line 744
+-    .local v9, "fileInputStream":Ljava/io/FileInputStream;
+-    new-instance v19, Ljava/net/URL;
+-
+-    invoke-direct/range {v19 .. v20}, Ljava/net/URL;-><init>(Ljava/lang/String;)V
+-
+-    .line 745
+-    .local v19, "url":Ljava/net/URL;
+-    invoke-virtual/range {v19 .. v19}, Ljava/net/URL;->openConnection()Ljava/net/URLConnection;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    check-cast v0, Ljava/net/HttpURLConnection;
+-
+-    move-object v8, v0
+-
+-    .line 748
+-    const/16 v21, 0x1
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v8, v0}, Ljava/net/HttpURLConnection;->setDoInput(Z)V
+-
+-    .line 749
+-    const/16 v21, 0x1
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v8, v0}, Ljava/net/HttpURLConnection;->setDoOutput(Z)V
+-
+-    .line 750
+-    const/16 v21, 0x0
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v8, v0}, Ljava/net/HttpURLConnection;->setUseCaches(Z)V
+-
+-    .line 753
+-    const-string v21, "POST"
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v8, v0}, Ljava/net/HttpURLConnection;->setRequestMethod(Ljava/lang/String;)V
+-
+-    .line 755
+-    const-string v21, "Connection"
+-
+-    const-string v22, "Keep-Alive"
+-
+-    move-object/from16 v0, v21
+-
+-    move-object/from16 v1, v22
+-
+-    invoke-virtual {v8, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
+-
+-    .line 756
+-    const-string v21, "Content-Type"
+-
+-    new-instance v22, Ljava/lang/StringBuilder;
+-
+-    const-string v23, "multipart/form-data;boundary="
+-
+-    invoke-direct/range {v22 .. v23}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    move-object/from16 v0, v22
+-
+-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v22
+-
+-    invoke-virtual/range {v22 .. v22}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v22
+-
+-    move-object/from16 v0, v21
+-
+-    move-object/from16 v1, v22
+-
+-    invoke-virtual {v8, v0, v1}, Ljava/net/HttpURLConnection;->setRequestProperty(Ljava/lang/String;Ljava/lang/String;)V
+-
+-    .line 758
+-    new-instance v14, Ljava/io/DataOutputStream;
+-
+-    invoke-virtual {v8}, Ljava/net/HttpURLConnection;->getOutputStream()Ljava/io/OutputStream;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-direct {v14, v0}, Ljava/io/DataOutputStream;-><init>(Ljava/io/OutputStream;)V
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    .line 759
+-    .end local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    .local v14, "outputStream":Ljava/io/DataOutputStream;
+-    :try_start_1
+-    new-instance v21, Ljava/lang/StringBuilder;
+-
+-    invoke-static/range {v18 .. v18}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v22
+-
+-    invoke-direct/range {v21 .. v22}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    invoke-virtual/range {v21 .. v21}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v14, v0}, Ljava/io/DataOutputStream;->writeBytes(Ljava/lang/String;)V
+-
+-    .line 760
+-    new-instance v21, Ljava/lang/StringBuilder;
+-
+-    const-string v22, "Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
+-
+-    invoke-direct/range {v21 .. v22}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v2}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    const-string v22, "\""
+-
+-    invoke-virtual/range {v21 .. v22}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    invoke-virtual/range {v21 .. v21}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v14, v0}, Ljava/io/DataOutputStream;->writeBytes(Ljava/lang/String;)V
+-
+-    .line 761
+-    invoke-virtual {v14, v11}, Ljava/io/DataOutputStream;->writeBytes(Ljava/lang/String;)V
+-
+-    .line 763
+-    invoke-virtual {v9}, Ljava/io/FileInputStream;->available()I
+-
+-    move-result v6
+-
+-    .line 764
+-    .local v6, "bytesAvailable":I
+-    invoke-static {v6, v12}, Ljava/lang/Math;->min(II)I
+-
+-    move-result v5
+-
+-    .line 765
+-    .local v5, "bufferSize":I
+-    new-array v4, v5, [B
+-
+-    .line 768
+-    .local v4, "buffer":[B
+-    const/16 v21, 0x0
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v9, v4, v0, v5}, Ljava/io/FileInputStream;->read([BII)I
+-
+-    move-result v7
+-
+-    .line 770
+-    .local v7, "bytesRead":I
+-    :goto_0
+-    if-gtz v7, :cond_0
+-
+-    .line 778
+-    invoke-virtual {v14, v11}, Ljava/io/DataOutputStream;->writeBytes(Ljava/lang/String;)V
+-
+-    .line 779
+-    new-instance v21, Ljava/lang/StringBuilder;
+-
+-    invoke-static/range {v18 .. v18}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+-
+-    move-result-object v22
+-
+-    invoke-direct/range {v21 .. v22}, Ljava/lang/StringBuilder;-><init>(Ljava/lang/String;)V
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v3}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    move-object/from16 v1, v18
+-
+-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v0, v11}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+-
+-    move-result-object v21
+-
+-    invoke-virtual/range {v21 .. v21}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+-
+-    move-result-object v21
+-
+-    move-object/from16 v0, v21
+-
+-    invoke-virtual {v14, v0}, Ljava/io/DataOutputStream;->writeBytes(Ljava/lang/String;)V
+-
+-    .line 782
+-    invoke-virtual {v8}, Ljava/net/HttpURLConnection;->getResponseCode()I
+-
+-    move-result v16
+-
+-    .line 783
+-    .local v16, "serverResponseCode":I
+-    invoke-virtual {v8}, Ljava/net/HttpURLConnection;->getResponseMessage()Ljava/lang/String;
+-
+-    move-result-object v17
+-
+-    .line 785
+-    .local v17, "serverResponseMessage":Ljava/lang/String;
+-    invoke-virtual {v9}, Ljava/io/FileInputStream;->close()V
+-
+-    .line 786
+-    invoke-virtual {v14}, Ljava/io/DataOutputStream;->flush()V
+-
+-    .line 787
+-    invoke-virtual {v14}, Ljava/io/DataOutputStream;->close()V
+-
+-    move-object v13, v14
+-
+-    .line 793
+-    .end local v4    # "buffer":[B
+-    .end local v5    # "bufferSize":I
+-    .end local v6    # "bytesAvailable":I
+-    .end local v7    # "bytesRead":I
+-    .end local v9    # "fileInputStream":Ljava/io/FileInputStream;
+-    .end local v14    # "outputStream":Ljava/io/DataOutputStream;
+-    .end local v16    # "serverResponseCode":I
+-    .end local v17    # "serverResponseMessage":Ljava/lang/String;
+-    .end local v19    # "url":Ljava/net/URL;
+-    .restart local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    :goto_1
++    .locals 0
+     return-void
+-
+-    .line 772
+-    .end local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    .restart local v4    # "buffer":[B
+-    .restart local v5    # "bufferSize":I
+-    .restart local v6    # "bytesAvailable":I
+-    .restart local v7    # "bytesRead":I
+-    .restart local v9    # "fileInputStream":Ljava/io/FileInputStream;
+-    .restart local v14    # "outputStream":Ljava/io/DataOutputStream;
+-    .restart local v19    # "url":Ljava/net/URL;
+-    :cond_0
+-    const/16 v21, 0x0
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v14, v4, v0, v5}, Ljava/io/DataOutputStream;->write([BII)V
+-
+-    .line 773
+-    invoke-virtual {v9}, Ljava/io/FileInputStream;->available()I
+-
+-    move-result v6
+-
+-    .line 774
+-    invoke-static {v6, v12}, Ljava/lang/Math;->min(II)I
+-
+-    move-result v5
+-
+-    .line 775
+-    const/16 v21, 0x0
+-
+-    move/from16 v0, v21
+-
+-    invoke-virtual {v9, v4, v0, v5}, Ljava/io/FileInputStream;->read([BII)I
+-    :try_end_1
+-    .catch Ljava/lang/Exception; {:try_start_1 .. :try_end_1} :catch_1
+-
+-    move-result v7
+-
+-    goto :goto_0
+-
+-    .line 789
+-    .end local v4    # "buffer":[B
+-    .end local v5    # "bufferSize":I
+-    .end local v6    # "bytesAvailable":I
+-    .end local v7    # "bytesRead":I
+-    .end local v9    # "fileInputStream":Ljava/io/FileInputStream;
+-    .end local v14    # "outputStream":Ljava/io/DataOutputStream;
+-    .end local v19    # "url":Ljava/net/URL;
+-    .restart local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    :catch_0
+-    move-exception v21
+-
+-    goto :goto_1
+-
+-    .end local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    .restart local v9    # "fileInputStream":Ljava/io/FileInputStream;
+-    .restart local v14    # "outputStream":Ljava/io/DataOutputStream;
+-    .restart local v19    # "url":Ljava/net/URL;
+-    :catch_1
+-    move-exception v21
+-
+-    move-object v13, v14
+-
+-    .end local v14    # "outputStream":Ljava/io/DataOutputStream;
+-    .restart local v13    # "outputStream":Ljava/io/DataOutputStream;
+-    goto :goto_1
+ .end method
+ 
+ .method public IsPhone()Z
+@@ -3488,56 +2222,9 @@
+ .end method
+ 
+ .method public networkCheck()Z
+-    .locals 7
+-
+-    .prologue
+-    const/4 v4, 0x1
+-
+-    const/4 v3, 0x0
+-
+-    .line 977
+-    iget-object v5, p0, Lcom/common/Library;->context:Landroid/content/Context;
+-
+-    const-string v6, "connectivity"
+-
+-    invoke-virtual {v5, v6}, Landroid/content/Context;->getSystemService(Ljava/lang/String;)Ljava/lang/Object;
+-
+-    move-result-object v0
+-
+-    check-cast v0, Landroid/net/ConnectivityManager;
+-
+-    .line 978
+-    .local v0, "manager":Landroid/net/ConnectivityManager;
+-    invoke-virtual {v0, v3}, Landroid/net/ConnectivityManager;->getNetworkInfo(I)Landroid/net/NetworkInfo;
+-
+-    move-result-object v1
+-
+-    .line 979
+-    .local v1, "mobile":Landroid/net/NetworkInfo;
+-    invoke-virtual {v0, v4}, Landroid/net/ConnectivityManager;->getNetworkInfo(I)Landroid/net/NetworkInfo;
+-
+-    move-result-object v2
+-
+-    .line 980
+-    .local v2, "wifi":Landroid/net/NetworkInfo;
+-    invoke-virtual {v1}, Landroid/net/NetworkInfo;->isConnected()Z
+-
+-    move-result v5
+-
+-    if-nez v5, :cond_0
+-
+-    invoke-virtual {v2}, Landroid/net/NetworkInfo;->isConnected()Z
+-
+-    move-result v5
+-
+-    if-eqz v5, :cond_1
+-
+-    :cond_0
+-    move v3, v4
+-
+-    .line 986
+-    :cond_1
+-    return v3
++    .locals 1
++    const/4 v0, 0x0
++    return v0
+ .end method
+ 
+ .method public putFloat(Ljava/lang/String;F)V
+@@ -4136,41 +2823,9 @@
+ .end method
+ 
+ .method public rootingCheck()Z
+-    .locals 4
+-
+-    .prologue
+-    .line 1011
+-    const/4 v1, 0x0
+-
+-    .line 1015
+-    .local v1, "isRootingFlag":Z
+-    :try_start_0
+-    invoke-static {}, Ljava/lang/Runtime;->getRuntime()Ljava/lang/Runtime;
+-
+-    move-result-object v2
+-
+-    const-string v3, "su"
+-
+-    invoke-virtual {v2, v3}, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;
+-    :try_end_0
+-    .catch Ljava/lang/Exception; {:try_start_0 .. :try_end_0} :catch_0
+-
+-    .line 1016
+-    const/4 v1, 0x1
+-
+-    .line 1023
+-    :goto_0
+-    return v1
+-
+-    .line 1018
+-    :catch_0
+-    move-exception v0
+-
+-    .line 1021
+-    .local v0, "e":Ljava/lang/Exception;
+-    const/4 v1, 0x0
+-
+-    goto :goto_0
++    .locals 1
++    const/4 v0, 0x0
++    return v0
+ .end method
+ 
+ .method public setString(Ljava/lang/String;)V
+--- original/smali/com/my/Layer/MainMenuLayer.smali
++++ patched/smali/com/my/Layer/MainMenuLayer.smali
+@@ -16618,598 +16618,18 @@
+ .end method
+ 
+ .method public BannerModeProc(F)V
+-    .locals 14
+-    .param p1, "t"    # F
+-
+-    .prologue
+-    const/4 v5, 0x3
+-
+-    const/4 v13, 0x1
+-
+-    const/16 v2, 0x3c
+-
+-    const/4 v3, -0x1
+-
+-    const/4 v4, 0x0
+-
+-    .line 9464
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
++    .locals 2
++    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+     move-result-object v0
+-
+     iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v0, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    packed-switch v0, :pswitch_data_0
+-
+-    .line 9629
+-    :cond_0
+-    :goto_0
+-    :pswitch_0
++    const/4 v1, -0x1
++    iput v1, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
++    const/4 v1, 0x0
++    iput-boolean v1, v0, Lcom/my/Struct/GAMEINFO;->bDownloading:Z
++    const-string v1, ""
++    iput-object v1, v0, Lcom/my/Struct/GAMEINFO;->szBannerLink:Ljava/lang/String;
++    iput-object v1, v0, Lcom/my/Struct/GAMEINFO;->szBannerImgURL:Ljava/lang/String;
+     return-void
+-
+-    .line 9474
+-    :pswitch_1
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v13, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    .line 9477
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput-boolean v13, v0, Lcom/my/Struct/GAMEINFO;->bDownloading:Z
+-
+-    .line 9478
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v5, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto :goto_0
+-
+-    .line 9485
+-    :pswitch_2
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget-boolean v0, v0, Lcom/my/Struct/GAMEINFO;->bDownloading:Z
+-
+-    if-nez v0, :cond_0
+-
+-    .line 9487
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9488
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    .line 9489
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v1, 0x2
+-
+-    iput v1, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto :goto_0
+-
+-    .line 9496
+-    :pswitch_3
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    add-float/2addr v0, p1
+-
+-    iput v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9497
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    const/high16 v1, 0x3f000000    # 0.5f
+-
+-    cmpl-float v0, v0, v1
+-
+-    if-lez v0, :cond_0
+-
+-    .line 9499
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9500
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    .line 9501
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v5, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto :goto_0
+-
+-    .line 9508
+-    :pswitch_4
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->m_lib:Lcom/common/Library;
+-
+-    const-string v1, "http://kakao.palamini-game.com/paladog/paladogbanner_google1.txt"
+-
+-    invoke-virtual {v0, v1}, Lcom/common/Library;->DownloadHtml(Ljava/lang/String;)Ljava/lang/String;
+-
+-    move-result-object v12
+-
+-    .line 9510
+-    .local v12, "recvData":Ljava/lang/String;
+-    if-nez v12, :cond_1
+-
+-    .line 9512
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v3, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto :goto_0
+-
+-    .line 9515
+-    :cond_1
+-    invoke-virtual {v12}, Ljava/lang/String;->length()I
+-
+-    move-result v0
+-
+-    if-nez v0, :cond_2
+-
+-    .line 9517
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v3, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto :goto_0
+-
+-    .line 9522
+-    :cond_2
+-    const-string v0, ","
+-
+-    invoke-virtual {v12, v0}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+-
+-    move-result-object v8
+-
+-    .line 9524
+-    .local v8, "arrays":[Ljava/lang/String;
+-    array-length v0, v8
+-
+-    if-nez v0, :cond_3
+-
+-    .line 9526
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v3, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9530
+-    :cond_3
+-    const/4 v9, 0x0
+-
+-    .line 9531
+-    .local v9, "lc_iKind":I
+-    const/4 v0, 0x0
+-
+-    aget-object v0, v8, v0
+-
+-    invoke-static {v0}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+-
+-    move-result v9
+-
+-    .line 9533
+-    if-nez v9, :cond_4
+-
+-    .line 9535
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v3, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9539
+-    :cond_4
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    aget-object v1, v8, v13
+-
+-    invoke-static {v1}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+-
+-    move-result v1
+-
+-    iput v1, v0, Lcom/my/Struct/GAMEINFO;->iBannerImage:I
+-
+-    .line 9540
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v1, 0x2
+-
+-    aget-object v1, v8, v1
+-
+-    iput-object v1, v0, Lcom/my/Struct/GAMEINFO;->szBannerLink:Ljava/lang/String;
+-
+-    .line 9541
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    aget-object v1, v8, v5
+-
+-    iput-object v1, v0, Lcom/my/Struct/GAMEINFO;->szBannerImgURL:Ljava/lang/String;
+-
+-    .line 9545
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v1, 0x5
+-
+-    iput v1, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9553
+-    .end local v8    # "arrays":[Ljava/lang/String;
+-    .end local v9    # "lc_iKind":I
+-    .end local v12    # "recvData":Ljava/lang/String;
+-    :pswitch_5
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    add-float/2addr v0, p1
+-
+-    iput v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9554
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    add-float/2addr v0, p1
+-
+-    iput v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    .line 9557
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    const/high16 v1, 0x40a00000    # 5.0f
+-
+-    cmpl-float v0, v0, v1
+-
+-    if-lez v0, :cond_5
+-
+-    .line 9559
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9560
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTickAccum:F
+-
+-    .line 9561
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v3, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9566
+-    :cond_5
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    const/high16 v1, 0x3f000000    # 0.5f
+-
+-    cmpl-float v0, v0, v1
+-
+-    if-lez v0, :cond_0
+-
+-    .line 9568
+-    iput v4, p0, Lcom/my/Layer/MainMenuLayer;->m_fBannerTick:F
+-
+-    .line 9569
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iput v5, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9580
+-    :pswitch_6
+-    invoke-static {}, Lorg/cocos2d/nodes/CCSpriteFrameCache;->sharedSpriteFrameCache()Lorg/cocos2d/nodes/CCSpriteFrameCache;
+-
+-    move-result-object v0
+-
+-    const-string v1, "mini_banner.plist"
+-
+-    invoke-virtual {v0, v1}, Lorg/cocos2d/nodes/CCSpriteFrameCache;->addSpriteFrames(Ljava/lang/String;)Ljava/util/Set;
+-
+-    .line 9581
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v0, v0, Lcom/my/Struct/GAMEINFO;->iBannerImage:I
+-
+-    if-nez v0, :cond_8
+-
+-    .line 9583
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    const-string v1, "mini_banner.JA"
+-
+-    const/high16 v3, 0x42040000    # 33.0f
+-
+-    invoke-virtual {v0, v2, v1, v3}, Lcom/common/AppDelegate;->CacheMJA(ILjava/lang/String;F)V
+-
+-    .line 9590
+-    :goto_1
+-    const/high16 v7, 0x3f800000    # 1.0f
+-
+-    .line 9592
+-    .local v7, "lc_fScale":F
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v0, v0, Lcom/my/Struct/GAMEINFO;->fSXForOldies:F
+-
+-    cmpl-float v0, v0, v4
+-
+-    if-nez v0, :cond_6
+-
+-    .line 9594
+-    const v7, 0x3f4ccccd    # 0.8f
+-
+-    .line 9597
+-    :cond_6
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v1
+-
+-    iget-object v3, v1, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v1, v3, Lcom/my/Struct/GAMEINFO;->iIDCount:I
+-
+-    add-int/lit8 v4, v1, 0x1
+-
+-    iput v4, v3, Lcom/my/Struct/GAMEINFO;->iIDCount:I
+-
+-    iget v3, p0, Lcom/my/Layer/MainMenuLayer;->m_iBannerX:I
+-
+-    int-to-float v4, v3
+-
+-    iget v3, p0, Lcom/my/Layer/MainMenuLayer;->m_iBannerY:I
+-
+-    int-to-float v5, v3
+-
+-    const/high16 v6, 0x43470000    # 199.0f
+-
+-    move v3, v2
+-
+-    invoke-virtual/range {v0 .. v7}, Lcom/common/AppDelegate;->CreateFromMJA(IIIFFFF)Lcom/my/Char/CharInfo;
+-
+-    move-result-object v11
+-
+-    .line 9598
+-    .local v11, "lc_pCIS":Lcom/my/Char/CharInfo;
+-    iget v0, v11, Lcom/my/Char/CharInfo;->m_iID:I
+-
+-    iput v0, p0, Lcom/my/Layer/MainMenuLayer;->m_iCharIDBannerSave:I
+-
+-    .line 9599
+-    const/4 v0, 0x0
+-
+-    invoke-virtual {v11, v2, v13, v0}, Lcom/my/Char/CharInfo;->MJAChange(IZI)Z
+-
+-    .line 9600
+-    const/high16 v0, -0x3b060000    # -2000.0f
+-
+-    iget v1, p0, Lcom/my/Layer/MainMenuLayer;->m_iBannerY:I
+-
+-    int-to-float v1, v1
+-
+-    iget-object v2, v11, Lcom/my/Char/CharInfo;->m_vPos:Lcom/my/Struct/VEC3;
+-
+-    iget v2, v2, Lcom/my/Struct/VEC3;->z:F
+-
+-    invoke-virtual {v11, v0, v1, v2}, Lcom/my/Char/CharInfo;->SetPos(FFF)V
+-
+-    .line 9604
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_iCharIDBannerSave:I
+-
+-    iput v0, p0, Lcom/my/Layer/MainMenuLayer;->m_iCharIDBanner:I
+-
+-    .line 9605
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_iModePaladog:I
+-
+-    const/4 v1, 0x5
+-
+-    if-lt v0, v1, :cond_7
+-
+-    .line 9607
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->m_pCharManager:Lcom/my/Char/CharManager;
+-
+-    iget v1, p0, Lcom/my/Layer/MainMenuLayer;->m_iCharIDBanner:I
+-
+-    const/4 v2, 0x0
+-
+-    invoke-virtual {v0, v1, v2}, Lcom/my/Char/CharManager;->GetCharInfo(IZ)Lcom/my/Char/CharInfo;
+-
+-    move-result-object v10
+-
+-    .line 9608
+-    .local v10, "lc_pCI":Lcom/my/Char/CharInfo;
+-    if-eqz v10, :cond_7
+-
+-    .line 9610
+-    iget v0, p0, Lcom/my/Layer/MainMenuLayer;->m_iBannerX:I
+-
+-    int-to-float v0, v0
+-
+-    iget v1, p0, Lcom/my/Layer/MainMenuLayer;->m_iBannerY:I
+-
+-    int-to-float v1, v1
+-
+-    iget-object v2, v10, Lcom/my/Char/CharInfo;->m_vPos:Lcom/my/Struct/VEC3;
+-
+-    iget v2, v2, Lcom/my/Struct/VEC3;->z:F
+-
+-    invoke-virtual {v10, v0, v1, v2}, Lcom/my/Char/CharInfo;->SetPos(FFF)V
+-
+-    .line 9611
+-    const/high16 v0, 0x3f800000    # 1.0f
+-
+-    iput v0, v10, Lcom/my/Char/CharInfo;->m_fMJAOpacity:F
+-
+-    .line 9616
+-    .end local v10    # "lc_pCI":Lcom/my/Char/CharInfo;
+-    :cond_7
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v1, 0x2f
+-
+-    const/high16 v2, 0x42a00000    # 80.0f
+-
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v3
+-
+-    iget-object v3, v3, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    iget v3, v3, Lcom/my/Struct/GAMEINFO;->fSXForOldies:F
+-
+-    add-float/2addr v2, v3
+-
+-    const/high16 v3, 0x437a0000    # 250.0f
+-
+-    invoke-virtual {v0, v1, v2, v3}, Lcom/my/UI/UIManager;->SetPosByID(IFF)V
+-
+-    .line 9617
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
+-
+-    const/16 v1, 0x14
+-
+-    const/high16 v2, 0x433e0000    # 190.0f
+-
+-    const/high16 v3, 0x43200000    # 160.0f
+-
+-    invoke-virtual {v0, v1, v2, v3}, Lcom/my/UI/UIManager;->SetPosByID(IFF)V
+-
+-    .line 9620
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    iget-object v0, v0, Lcom/common/AppDelegate;->g_GI:Lcom/my/Struct/GAMEINFO;
+-
+-    const/4 v1, 0x6
+-
+-    iput v1, v0, Lcom/my/Struct/GAMEINFO;->iBannerMode:I
+-
+-    goto/16 :goto_0
+-
+-    .line 9587
+-    .end local v7    # "lc_fScale":F
+-    .end local v11    # "lc_pCIS":Lcom/my/Char/CharInfo;
+-    :cond_8
+-    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
+-
+-    move-result-object v0
+-
+-    const-string v1, "mini_banner_launch.JA"
+-
+-    const/high16 v3, 0x42040000    # 33.0f
+-
+-    invoke-virtual {v0, v2, v1, v3}, Lcom/common/AppDelegate;->CacheMJA(ILjava/lang/String;F)V
+-
+-    goto/16 :goto_1
+-
+-    .line 9464
+-    :pswitch_data_0
+-    .packed-switch -0x1
+-        :pswitch_0
+-        :pswitch_1
+-        :pswitch_2
+-        :pswitch_3
+-        :pswitch_4
+-        :pswitch_5
+-        :pswitch_6
+-    .end packed-switch
+ .end method
+ 
+ .method protected ChangeCharAniDarkdog(I)V
+@@ -32003,6 +31423,7 @@
+     .line 3309
+     :cond_0
+     :goto_0
++    invoke-direct/range {p0 .. p0}, Lcom/my/Layer/MainMenuLayer;->HideOnlineControls()V
+     return-void
+ 
+     .line 2007
+@@ -45598,6 +45019,21 @@
+     .locals 12
+     .param p1, "p_iUIID"    # I
+ 
++    move/from16 v0, p1
++    const/16 v1, 0x2f
++    if-ne v0, v1, :offline_notice_skipped
++    return-void
++    :offline_notice_skipped
++    const/16 v1, 0x83
++    if-eq v0, v1, :offline_survival
++    const/16 v1, 0xa0
++    if-eq v0, v1, :offline_survival
++    const/16 v1, 0xa1
++    if-ne v0, v1, :offline_original_touch
++    :offline_survival
++    const/16 v0, 0xa2
++    move/16 p1, v0
++    :offline_original_touch
+     .prologue
+     .line 4064
+     sparse-switch p1, :sswitch_data_0
+@@ -56693,3 +56129,34 @@
+     .line 1989
+     goto/16 :goto_0
+ .end method
++
++.method private HideOnlineControls()V
++    .locals 3
++    iget-boolean v0, p0, Lcom/my/Layer/MainMenuLayer;->m_bAfterDeallocForce:Z
++    if-nez v0, :offline_ui_return
++    invoke-static {}, Lcom/common/AppDelegate;->sharedAppDelegate()Lcom/common/AppDelegate;
++    move-result-object v0
++    iget-object v0, v0, Lcom/common/AppDelegate;->m_pUIManager:Lcom/my/UI/UIManager;
++    if-eqz v0, :offline_ui_return
++    const/4 v2, 0x2
++    const/16 v1, 0x2f
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x32
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x5b
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x5c
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x5e
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x5f
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0x60
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0xa0
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    const/16 v1, 0xa1
++    invoke-virtual {v0, v1, v2}, Lcom/my/UI/UIManager;->ChangeStateByID(II)V
++    :offline_ui_return
++    return-void
++.end method
+--- original/AndroidManifest.xml
++++ patched/AndroidManifest.xml
+@@ -1,36 +1,15 @@
+ <?xml version="1.0" encoding="utf-8"?>
+ <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.Paladog.KorGG" platformBuildVersionCode="23" platformBuildVersionName="6.0-2166767">
+-    <uses-permission android:name="com.android.vending.BILLING"/>
+-    <uses-permission android:name="android.permission.INTERNET"/>
+-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+-    <uses-permission android:name="com.android.vending.CHECK_LICENSE"/>
+-    <uses-permission android:name="android.permission.VIBRATE"/>
+-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+-    <permission android:name="com.Paladog.KorGG.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+-    <uses-permission android:name="com.Paladog.KorGG.permission.C2D_MESSAGE"/>
+-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+-    <application android:debuggable="false" android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+-        <activity android:configChanges="keyboardHidden|orientation" android:label="@string/app_name" android:name=".Paladog" android:screenOrientation="landscape">
+-            <intent-filter>
+-                <action android:name="android.intent.action.MAIN"/>
+-                <category android:name="android.intent.category.LAUNCHER"/>
+-            </intent-filter>
+-        </activity>
+-        <activity android:label="@string/app_name" android:name=".MessageBoxActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Translucent"/>
+-        <activity android:label="@string/app_name" android:name=".ServerSendMessageBoxActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Translucent"/>
+-        <activity android:label="@string/app_name" android:name=".InputActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustPan|stateVisible"/>
+-        <activity android:label="@string/app_name" android:name="FaceBookActivity" android:screenOrientation="portrait" android:theme="@style/Theme.PlainText"/>
+-        <receiver android:name="com.google.android.gcm.GCMBroadcastReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+-            <intent-filter>
+-                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+-                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+-                <category android:name="com.Paladog.KorGG"/>
+-            </intent-filter>
+-        </receiver>
+-        <service android:name=".GCMIntentService"/>
+-    </application>
+-    <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true"/>
++  <uses-permission android:name="android.permission.VIBRATE" />
++  <application android:debuggable="false" android:icon="@drawable/icon" android:label="@string/app_name" android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" android:allowBackup="false" android:usesCleartextTraffic="false">
++    <activity android:configChanges="keyboardHidden|orientation" android:label="@string/app_name" android:name=".Paladog" android:screenOrientation="landscape" android:exported="true">
++      <intent-filter>
++        <action android:name="android.intent.action.MAIN" />
++        <category android:name="android.intent.category.LAUNCHER" />
++      </intent-filter>
++    </activity>
++    <activity android:label="@string/app_name" android:name=".MessageBoxActivity" android:screenOrientation="landscape" android:theme="@style/Theme.Translucent" android:exported="false" />
++    <activity android:label="@string/app_name" android:name=".InputActivity" android:screenOrientation="landscape" android:windowSoftInputMode="adjustPan|stateVisible" android:exported="false" />
++  </application>
++  <supports-screens android:anyDensity="true" android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" />
+ </manifest>

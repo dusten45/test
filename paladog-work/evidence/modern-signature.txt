@@ -1,0 +1,17 @@
+Verifies
+Verified using v1 scheme (JAR signing): true
+Verified using v2 scheme (APK Signature Scheme v2): true
+Verified using v3 scheme (APK Signature Scheme v3): true
+Verified using v3.1 scheme (APK Signature Scheme v3.1): false
+Verified using v4 scheme (APK Signature Scheme v4): false
+Verified for SourceStamp: false
+Number of signers: 1
+Signer #1 certificate DN: CN=Paladog Local Privacy Build, O=Personal Offline Build
+Signer #1 certificate SHA-256 digest: 8926a525e010d21bb6107f2bec4237223efef287c1b71110da92aed68d1aab77
+Signer #1 certificate SHA-1 digest: 459c5bcd680be53e7959fecaeed08d5c54df28b9
+Signer #1 certificate MD5 digest: 963ca372f527e83a8c88d245f97a97b6
+Signer #1 key algorithm: RSA
+Signer #1 key size (bits): 3072
+Signer #1 public key SHA-256 digest: 92d20b33ed95ce666f1bca1ff04130235e99b3244f4a8057d02de638be8d4c50
+Signer #1 public key SHA-1 digest: 2e7345e87e66e511fb16cd1d3a6d6b30c9ad4000
+Signer #1 public key MD5 digest: 147d6c3cd04837cfeac983ad816bde7e
