@@ -1,0 +1,15 @@
+Paladog Linux adapter test suite
+UTC: 2026-10-18T11:23:46Z
+Existing build only; temporary test saves; OpenAL loopback output.
+
+PASS compile-tests
+PASS storage
+PASS resources
+PASS offline-plist
+PASS audio-codec-loopback
+PASS audio-resources
+PASS rendering
+PASS input
+PASS adapter-classes-unchanged
+
+Failed groups: 0

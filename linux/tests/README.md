@@ -25,7 +25,9 @@ The suite compiles only test classes and runs these checks:
 - Plists: nested game data and every packaged plist, with HTTP connections forbidden.
 - Audio: all 145 packaged MP3 files, OpenAL loopback PCM, volume, pause/resume, lifecycle, and the game's resource-based media calls.
 - Rendering: bitmap alpha, Korean font coverage, actual OpenGL draw/readback, and graphics cleanup thread ownership.
-- Input: mouse/keyboard mapping, simultaneous controls, and release behavior.
+- Input: mouse/keyboard mapping, simultaneous controls, and release behavior; original game callbacks for visible unit order, Destiny stack order/compaction, Tower unit/lane sequences and cancellation. The callback tests replace final unit creation with a recording sink, so food deduction and actual spawning are checked separately in live play.
+
+For isolated live gameplay checks, see [the synthetic fixture utility](gameplay/README.md). It is optional and must never be pointed at personal saves.
 
 Storage tests create and remove temporary save directories. They never import or use player saves. Audio checks use OpenAL loopback and do not require a physical sound device. Graphics checks open their own small test window; they do not send events to a running game. The suite can run alongside a game session, but do not rebuild adapter classes during testing.
 

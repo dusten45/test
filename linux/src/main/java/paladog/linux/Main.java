@@ -37,7 +37,7 @@ public final class Main {
                 case "--max-seconds" -> limit=Double.parseDouble(args[++i]);
                 case "--screenshot" -> snapshot=args[++i];
                 case "--trace" -> System.setProperty("paladog.trace","true");
-                case "--help" -> { System.out.println("Paladog Linux\nMouse: menus and game controls\nA/D or arrows: movement; 1-9: units; Q/W/E: magic; Space: jump; Esc: game back/quit\nOptions: --mute --data-dir PATH --assets APK-DIRECTORY\nTest options: --max-seconds N --screenshot PNG --trace");return; }
+                case "--help" -> { System.out.println("Paladog Linux\nMouse: menus and game controls\nA/D or arrows: movement; 1-9: units from left to right\nDestiny: 1-5 select items from the bottom of the stack\nFive-lane mode: unit number, then lane 1-5 from top to bottom (11, 12, 35)\nQ/W/E: magic; Space: jump; Esc: game back/quit\nOptions: --mute --data-dir PATH --assets APK-DIRECTORY\nTest options: --max-seconds N --screenshot PNG --trace");return; }
                 default -> throw new IllegalArgumentException("Unknown option: "+args[i]);
             }
         }
@@ -101,7 +101,7 @@ public final class Main {
             long started=System.nanoTime(),lastTrace=0,frames=0;
             while(!activity.isFinishing()) {
                 long frameStart=System.nanoTime();
-                glfwPollEvents();Handler.pump();view.drainEvents();
+                glfwPollEvents();Handler.pump();view.drainEvents();input.update();
                 if(!view.isPaused())renderer.onDrawFrame(gl);
                 boolean timeExpired=limit>0&&(frameStart-started)/1e9>=limit;
                 if(timeExpired&&snapshot!=null)capture(snapshot,Display.width,Display.height);
@@ -128,6 +128,11 @@ public final class Main {
         String hero=a.m_pGameManager==null||a.m_pGameManager.m_pPlayer==null?"none":
             a.m_pGameManager.m_pPlayer.m_vPos.x+":"+a.m_pGameManager.m_pPlayer.m_iState;
         System.out.println("[state] frame="+frame+" mode="+a.g_GI.gmGameMode+" layer="+a.g_GI.iCurLayer+" loaded="+a.g_bLoad+" step="+(a.m_pGameManager==null?-1:a.m_pGameManager.m_iGameStep)+" paused="+a.g_GI.bPause+" hero="+hero);
+        if(a.m_pGameManager!=null&&a.m_pCharManager!=null&&a.m_pCharManager.m_pAllyList!=null) {
+            StringBuilder allies=new StringBuilder();
+            for(var unit:a.m_pCharManager.m_pAllyList)allies.append(unit.m_iID).append(':').append(unit.m_dwKind).append('@').append(unit.m_iLine).append(',');
+            System.out.println("[controls] kind="+a.m_pGameManager.m_iGamePlayKind+" food="+a.m_pGameManager.m_fFoodCur+" tower="+a.g_GI.iTowerCreateUnitMode+" allies="+allies+" boxes="+java.util.Arrays.toString(a.g_GI.dwDestinyBox)+" order="+java.util.Arrays.toString(a.g_GI.iDestinyOrder));
+        }
     }
     private static void capture(String file,int width,int height) throws Exception {
         ByteBuffer pixels=BufferUtils.createByteBuffer(width*height*4);

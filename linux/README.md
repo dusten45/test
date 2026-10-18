@@ -1,15 +1,15 @@
-# Paladog Linux 독립 실행판 — 첫 검증판
+# Paladog Linux 독립 실행판 — PC 숫자키 개선판
 
 대상은 **Linux x86-64**입니다. 최종 Android 수정본의 DEX 게임 코드를 JVM 바이트코드로 변환하고, Linux OpenGL·입력·오디오·파일 저장 계층에 연결합니다. Android OS나 Android 에뮬레이터를 실행하지 않습니다.
 
-Java 런타임을 포함한 Linux x86-64 실행 묶음을 제공합니다. 첫 검증판으로, 기존 게임의 전체 콘텐츠와 모든 Linux 배포판을 전수 검증한 상태는 아닙니다. Windows 빌드는 이번 작업 범위에 포함하지 않습니다.
+Java 런타임을 포함한 Linux x86-64 실행 묶음을 제공합니다. 두 번째 검증판으로, 기존 게임의 전체 콘텐츠와 모든 Linux 배포판을 전수 검증한 상태는 아닙니다. Windows 빌드는 이번 작업 범위에 포함하지 않습니다.
 
 ## 다운로드
 
-- [Linux 실행 파일 — paladog-linux-x86_64.tar.gz](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/paladog-linux-x86_64.tar.gz)
-- [대응 소스 묶음](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/paladog-linux-x86_64-sources.tar.gz)
-- [SHA-256 목록](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/SHA256SUMS)
-- [릴리스 안내](https://github.com/dusten45/test/releases/tag/paladog-linux-preview-1)
+- [Linux 실행 파일 — paladog-linux-x86_64.tar.gz](https://github.com/dusten45/test/releases/download/paladog-linux-preview-2/paladog-linux-x86_64.tar.gz)
+- [대응 소스 묶음](https://github.com/dusten45/test/releases/download/paladog-linux-preview-2/paladog-linux-x86_64-sources.tar.gz)
+- [SHA-256 목록](https://github.com/dusten45/test/releases/download/paladog-linux-preview-2/SHA256SUMS)
+- [릴리스 안내](https://github.com/dusten45/test/releases/tag/paladog-linux-preview-2)
 
 실행하려면 첫 번째 파일을 받으세요. GitHub가 자동으로 제공하는 `Source code (zip)`은 게임 실행 묶음이 아닙니다. 릴리스 파일은 검증된 게임·어댑터 커밋을 GitHub Actions에서 빌드한 결과이며, 빌드 환경 기록 때문에 이전 클라우드 압축 파일과 전체 SHA-256은 다를 수 있습니다. 다운로드한 파일은 릴리스의 `SHA256SUMS`와 비교하세요.
 
@@ -29,12 +29,18 @@ cd paladog-linux-x86_64
 |---|---|
 | 마우스 | 메뉴와 화면의 원래 게임 버튼 |
 | A / D 또는 좌우 방향키 | 이동 |
-| 1–9 | 유닛 슬롯 소환 |
+| 1–9 | 일반 전투의 유닛 슬롯 소환. 팔라독은 화면 왼쪽부터 번호를 매기며 5는 거북이 |
+| 1–5 — 3번 스테이지 계열 | 가장 먼저 쌓인 bottom 항목부터 1, 2, 3, 4, 5로 선택. 없는 번호는 무시 |
+| 유닛 번호 → 레인 번호 — 9번 스테이지 계열 | 유닛 1–9 다음에 위에서부터 레인 1–5. `11`=쥐·맨 위, `12`=쥐·두 번째, `35`=곰·맨 아래 |
 | Q / W / E | 장착 마법 슬롯 |
 | Space | 해당 게임 모드에서 지원하는 점프 |
 | Esc 또는 창 닫기 | 원래 게임의 뒤로 가기·종료 확인 |
 
-키보드도 원래 터치 처리 경로를 사용하며, 잠긴 슬롯·자원 부족·게임 모드의 제한은 그대로 적용됩니다. 이동키 하나와 소환·마법·마우스 하나를 동시에 사용할 수 있습니다. 포커스를 잃으면 입력을 해제하고 게임을 일시 정지합니다.
+키보드도 원래 터치 처리 경로를 사용하며, 잠긴 슬롯·자원 부족·쿨타임·튜토리얼 제한은 그대로 적용됩니다. 잠긴 슬롯이 있어도 다른 유닛의 번호가 앞으로 당겨지지 않습니다. 일반 전투에서는 이동키 하나와 소환·마법·마우스 하나를 동시에 사용할 수 있습니다. 포커스를 잃으면 입력을 해제하고 게임을 일시 정지합니다.
+
+5레인 모드의 두 숫자는 순서대로 누릅니다. 빠르게 `11`을 눌러도 레인 준비가 끝날 때 처리합니다. 레인 선택 중 6–9는 무시하며, 마우스를 사용하거나 일시정지·창 전환을 하면 대기 중인 키보드 입력을 취소합니다. 새 입력 방식은 팔라독의 Destiny·5레인 모드에 적용하고, 다크독의 다른 모드 입력은 유지합니다.
+
+이전 실행 폴더와 별도로 압축을 풀어 실행해도 기본 저장 폴더는 동일합니다. 기존 저장 폴더를 삭제하거나 시험 세이브로 덮어쓰지 마세요.
 
 `./paladog --mute`로 소리를 끌 수 있습니다. 오디오 장치를 열지 못하면 콘솔에 알립니다. `./paladog --data-dir /원하는/경로`는 별도 저장 폴더로 실행합니다.
 
@@ -51,11 +57,14 @@ cd paladog-linux-x86_64
 - 타이틀·메뉴·새 캠페인 생성·재실행 후 슬롯 인식·첫 스테이지 진입.
 - 한글 튜토리얼·퀘스트·종료 안내의 표시.
 - 키보드 이동, 유닛 소환과 마법 효과를 포함한 실제 전투.
+- 일반 전투의 `5` 거북이 소환, Destiny의 스택 순서 선택과 없는 번호 무시, 5레인 모드의 `11`·`12`·`35` 소환.
 - 원래 종료 확인에서 YES를 선택한 정상 종료와 저장 파일 생성.
 - 실행 묶음을 공백이 포함된 별도 경로에 풀어 동봉 Java로 실행하고, 저장된 전투·유닛·캐릭터 위치 복원과 정상 종료 확인.
 - 별도 자동 검사: 핵심 게임·엔진 534개 클래스 JVM 검증, XML 저장·손상 복구, 원본 plist 814개 오프라인 해석, MP3 145개 디코딩, OpenAL 출력·반복·동시 재생, OpenGL 알파·한글·스레드 정리, 키 입력 회귀 검사.
 
-상세 시험 범위와 실제 화면은 [검증 기록](evidence/RESULT.md)에 있습니다. 추적한 패키지 실행 구간에서 외부 서버 연결이나 TCP/UDP 송신은 관측되지 않았습니다.
+상세 시험 범위와 실제 화면은 [초기 검증 기록](evidence/RESULT.md)과 [숫자키 개선 검증](evidence/CONTROLS-V2.md)에 있습니다. 추적한 패키지 실행 구간에서 외부 서버 연결이나 TCP/UDP 송신은 관측되지 않았습니다.
+
+가상 화면 환경에서는 레벨업 중 Esc 이후 화면 캡처가 검게 보이는 현상도 관측했습니다. 같은 시점의 실제 렌더링 버퍼와 스킬 선택은 정상이었으며, 표시 경로의 원인과 실제 데스크톱에서의 재현 여부는 아직 확인하지 못했습니다. 상세 관측은 숫자키 개선 검증 기록에 남겼습니다.
 
 오디오 검사는 PCM 출력과 재생 상태를 확인한 것입니다. 클라우드에서 물리 스피커로 들었다고 주장하지 않습니다. 캠페인 전 스테이지, 다크독 전체 진행, 서바이벌 장시간 플레이, 모든 장비·업그레이드는 미검증입니다.
 

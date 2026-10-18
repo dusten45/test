@@ -1,0 +1,33 @@
+{
+  "status": "passed-live-final-pointer-2-build",
+  "display": ":92",
+  "source_log": "stage9-final.log",
+  "fixture": "finite food capacity 120, regeneration skill 3; original costs and cooldowns",
+  "observations": [
+    {
+      "keys": "11",
+      "kind": 16908289,
+      "lane": 1,
+      "before": "[controls] kind=3 food=49.997498 tower=0 allies=3:16842753@0,4:18874369@-1, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "after": "[controls] kind=3 food=47.05349 tower=0 allies=3:16842753@0,4:18874369@-1,12:16908289@1, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "result": "PASS"
+    },
+    {
+      "keys": "12",
+      "kind": 16908289,
+      "lane": 2,
+      "before": "[controls] kind=3 food=54.088478 tower=0 allies=3:16842753@0,4:18874369@-1,12:16908289@1, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "after": "[controls] kind=3 food=51.123466 tower=0 allies=3:16842753@0,4:18874369@-1,12:16908289@1,15:16908289@2, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "result": "PASS"
+    },
+    {
+      "keys": "35",
+      "kind": 16908291,
+      "lane": 5,
+      "before": "[controls] kind=3 food=58.161957 tower=0 allies=3:16842753@0,4:18874369@-1,12:16908289@1,15:16908289@2, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "after": "[controls] kind=3 food=35.200447 tower=0 allies=3:16842753@0,4:18874369@-1,12:16908289@1,15:16908289@2,17:16908291@5, boxes=[0, 0, 0, 0, 0, 0, 0, 0, 0] order=[0, 0, 0, 0, 0, 0, 0, 0, 0]",
+      "result": "PASS"
+    }
+  ],
+  "note": "Two-second sampled trace; food regenerates between observations. Keyboard events injected through xdotool with 5ms inter-key delay."
+}

@@ -1,0 +1,38 @@
+{
+  "date": "2026-10-18",
+  "environment": "Xvfb X11, Mesa llvmpipe, isolated synthetic stage 3 save",
+  "symptom": "Root-window captures became black after Escape on the skill-selection panel; clicking the middle skill still selected it and resumed visible battle.",
+  "black_state": {
+    "game_pause": true,
+    "skill_selection": true,
+    "levelup_mode": 7,
+    "surface_paused": false,
+    "director_paused": false,
+    "scene": "GameScene",
+    "scene_and_layers_visible": true,
+    "card_opacity": 255,
+    "all_17_sprite_textures_valid": true,
+    "gl_error": 0,
+    "framebuffer": 0,
+    "viewport": [
+      0,
+      0,
+      960,
+      640
+    ],
+    "draw_buffer": "GL_BACK",
+    "read_buffer": "GL_BACK",
+    "backbuffer_nonblack_pixels": 596569,
+    "frontbuffer_nonblack_pixels": 0
+  },
+  "normal_recovered_state": {
+    "backbuffer_nonblack_pixels": 610498,
+    "frontbuffer_nonblack_pixels": 0
+  },
+  "comparisons": [
+    "Before/after Escape: scene, layer visibility, matrices, texture IDs/validity, vertex/color/texture-coordinate buffers, viewport, blend/depth/alpha/scissor state unchanged; only elapsed game tick differed.",
+    "A later skill panel remained visible after idle waiting, two consecutive root captures, and Shift input."
+  ],
+  "interpretation": "The game rendered the panel correctly into GL_BACK while X11 capture/presentation was black. The underlying presentation/capture cause remains unresolved; this is not a fixed gameplay defect or a physical-desktop validation.",
+  "production_changes_for_this_symptom": false
+}

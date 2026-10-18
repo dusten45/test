@@ -10,5 +10,6 @@ rm -rf -- "$test_classes"
 mkdir -p "$test_classes"
 "$java_command" -jar "$cache/tools/ecj-3.40.0.jar" -17 -encoding UTF-8 -proc:none \
   -classpath "$classpath" -d "$test_classes" \
-  "$root/tests/input/DesktopInputTest.java"
+  "$root/tests/input/DesktopInputTest.java" "$root/tests/input/DesktopGameInputTest.java"
 "$java_command" -Djava.awt.headless=true -cp "$test_classes:$classpath" paladog.linux.DesktopInputTest
+"$java_command" -Djava.awt.headless=true -cp "$test_classes:$classpath" paladog.linux.DesktopGameInputTest

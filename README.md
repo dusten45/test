@@ -6,7 +6,7 @@
 
 `paladog/linux-standalone` 브랜치에는 [Linux 실행판과 빌드 방법](linux/README.md)을 추가했습니다. 기존 게임 바이트코드를 JVM으로 옮기고 Linux OpenGL·입력·오디오·저장 계층을 연결합니다. Android OS나 에뮬레이터를 사용하지 않으며, 이번 범위는 Linux x86-64입니다.
 
-Java를 동봉한 실행 파일은 [GitHub Releases에서 다운로드](https://github.com/dusten45/test/releases/tag/paladog-linux-preview-1)할 수 있습니다. 실행 묶음과 대응 소스 묶음은 `linux/package.sh`로 만듭니다. 생성 파일·도구 캐시·시험 세이브는 Git에 넣지 않습니다.
+Java를 동봉한 실행 파일은 [GitHub Releases에서 다운로드](https://github.com/dusten45/test/releases/tag/paladog-linux-preview-2)할 수 있습니다. 일반 유닛 번호와 Destiny·5레인 모드 숫자키를 개선했습니다. 실행 묶음과 대응 소스 묶음은 `linux/package.sh`로 만듭니다. 생성 파일·도구 캐시·시험 세이브는 Git에 넣지 않습니다.
 
 ## 결과물
 
