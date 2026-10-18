@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      PALADOG_CACHE: ${{ runner.temp }}/paladog-linux-cache
       SOURCE_COMMIT: 7b80425abf4b93dacc64d6e0cc2037ff20531777
       RELEASE_TAG: paladog-linux-preview-1
     steps:
@@ -30,6 +29,7 @@ jobs:
       - name: Select Java and install the test display
         run: |
           echo "JAVA=$JAVA_HOME_21_X64/bin/java" >> "$GITHUB_ENV"
+          echo "PALADOG_CACHE=$RUNNER_TEMP/paladog-linux-cache" >> "$GITHUB_ENV"
           python3 --version
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y xvfb xauth libgl1-mesa-dri libglx-mesa0 libx11-6 libxcursor1 libxrandr2 libxi6 libxinerama1
