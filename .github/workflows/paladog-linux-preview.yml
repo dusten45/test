@@ -1,0 +1,67 @@
+name: Publish Paladog Linux preview
+
+on:
+  push:
+    branches: [paladog/linux-standalone]
+    paths: [.github/workflows/paladog-linux-preview.yml]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: paladog-linux-preview-1
+  cancel-in-progress: false
+
+jobs:
+  package:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PALADOG_CACHE: ${{ runner.temp }}/paladog-linux-cache
+      SOURCE_COMMIT: 7b80425abf4b93dacc64d6e0cc2037ff20531777
+      RELEASE_TAG: paladog-linux-preview-1
+    steps:
+      - name: Check out the tested game and adapter source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ env.SOURCE_COMMIT }}
+          persist-credentials: false
+
+      - name: Select Java and install the test display
+        run: |
+          echo "JAVA=$JAVA_HOME_21_X64/bin/java" >> "$GITHUB_ENV"
+          python3 --version
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y xvfb xauth libgl1-mesa-dri libglx-mesa0 libx11-6 libxcursor1 libxrandr2 libxi6 libxinerama1
+
+      - name: Build runtime, sources, and checksum files
+        run: ./linux/package.sh
+
+      - name: Run storage, resource, rendering, audio, and input checks
+        env:
+          LIBGL_ALWAYS_SOFTWARE: "1"
+          GALLIUM_DRIVER: llvmpipe
+          ALSOFT_DRIVERS: "null"
+        run: xvfb-run -a -s '-screen 0 1280x720x24 -nolisten tcp' ./linux/test.sh
+
+      - name: Check the packaged launcher and checksums
+        working-directory: linux/dist
+        run: |
+          sha256sum --check SHA256SUMS
+          cd paladog-linux-x86_64
+          sha256sum --quiet --check SHA256SUMS
+          ./paladog --help
+
+      - name: Attach files and publish the prepared preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          test "$(gh release view "$RELEASE_TAG" --json isDraft --jq .isDraft)" = true
+          gh release upload "$RELEASE_TAG" \
+            linux/dist/paladog-linux-x86_64.tar.gz \
+            linux/dist/paladog-linux-x86_64-sources.tar.gz \
+            linux/dist/SHA256SUMS
+          gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
+          gh release view "$RELEASE_TAG" --json url --jq .url >> "$GITHUB_STEP_SUMMARY"
+          cat linux/dist/SHA256SUMS >> "$GITHUB_STEP_SUMMARY"
