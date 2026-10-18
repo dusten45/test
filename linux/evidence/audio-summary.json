@@ -1,0 +1,13 @@
+{
+  "format": "WAVE extensible IEEE float32",
+  "channels": 2,
+  "sample_rate": 48000,
+  "frames": 17640960,
+  "duration_seconds": 367.52,
+  "nonzero_samples": 28390336,
+  "peak": 1.6053539514541626,
+  "rms": 0.19749451286437575,
+  "capture": "actual packaged game OpenAL wave backend",
+  "physical_speakers_tested": false,
+  "sha256": "c87b0d2c6f38b09f0654329b4307386fb0e8ed7af21ed8e195cd9d474c8714d7"
+}

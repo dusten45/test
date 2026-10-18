@@ -1,0 +1,25 @@
+{
+  "trace_scope": "launched package and descendants; network and execve syscalls",
+  "trace_lines": 149583,
+  "tcp_sockets_created": 3,
+  "tcp_connect_calls": 0,
+  "udp_port_zero_connect_calls": 2,
+  "udp_targets_confirmed_local_by_netlink": true,
+  "external_ip_connect_calls_observed": 0,
+  "udp_sendto_sendmsg_sendmmsg_calls": 0,
+  "sendto_calls": 2,
+  "sendmsg_calls": 0,
+  "sendmmsg_calls": 0,
+  "all_send_calls_target_kernel_netlink": true,
+  "successful_local_x11_connections": 2,
+  "failed_local_nscd_connections": 4,
+  "bundled_jre_execve_success_count": 1,
+  "normal_exit_status_in_trace": null,
+  "normal_exit_evidence": "Exit status is not recorded by this network/execve-only trace with quiet exit reporting; parent test runner observed normal exit after the in-game Quit/Yes action.",
+  "conclusion": "No external server connection or TCP/UDP send was observed. Two UDP port-zero connects target the process host own interface addresses and match local address/route selection probing, not observed data transmission.",
+  "limitations": [
+    "Only exercised game paths and the captured run are covered.",
+    "The trace is syscall evidence, not a packet capture. General write/writev/sendfile/io_uring operations are outside the selected syscall filter.",
+    "Raw trace data, addresses, and local absolute paths are excluded from this summary."
+  ]
+}

@@ -1,0 +1,80 @@
+[
+  {
+    "path": "tools/OpenJDK21U-jre_x64_linux_hotspot_21.0.12.1_1.tar.gz",
+    "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jre_x64_linux_hotspot_21.0.12.1_1.tar.gz",
+    "sha256": "2413149700df0f7d440500a84a8f764c535f21e5a5e87d38328b64eec2c5b500",
+    "size": 52059408
+  },
+  {
+    "path": "licenses/LWJGL-LICENSE.md",
+    "url": "https://raw.githubusercontent.com/LWJGL/lwjgl3/3.3.6/LICENSE.md",
+    "sha256": "4c2f770897d0cfda4d9a65bb4d6d6983dccfd57d4c7eb74ea5ded0762cbc0e75",
+    "size": 1518
+  },
+  {
+    "path": "licenses/GLFW-LICENSE.md",
+    "url": "https://raw.githubusercontent.com/glfw/glfw/21fea01161e0d6b70c0c5c1f52dc8e7a7df14a50/LICENSE.md",
+    "sha256": "149704059b5d0bf551637e50042dd4de9c2cae921021f6636298911e3a5f9462",
+    "size": 904
+  },
+  {
+    "path": "licenses/OpenAL-COPYING",
+    "url": "https://raw.githubusercontent.com/kcat/openal-soft/90191edd20bb877c5cbddfdac7ec0fe49ad93727/COPYING",
+    "sha256": "d808ce217e5b611854da622b57ec29fe545584c48bc5352fae72a4b6e5074a15",
+    "size": 23330
+  },
+  {
+    "path": "licenses/JSON-LICENSE",
+    "url": "https://raw.githubusercontent.com/stleary/JSON-java/20240303/LICENSE",
+    "sha256": "86cc84f1773e3318ba26fd61b3ae508a167df38b361695e105f6e499e7a2736f",
+    "size": 16
+  },
+  {
+    "path": "licenses/BouncyCastle-LICENSE.html",
+    "url": "https://raw.githubusercontent.com/bcgit/bc-java/r1rv80/LICENSE.html",
+    "sha256": "edbbb10380b1271998b867a2e36b1cbee226e03d438726e1a91f80c5dde11849",
+    "size": 1175
+  },
+  {
+    "path": "licenses/Apache-2.0.txt",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+    "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+    "size": 11358
+  },
+  {
+    "path": "sources/jlayer-1.0.1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/javazoom/jlayer/1.0.1/jlayer-1.0.1-sources.jar",
+    "sha256": "ecde410fc8940ab5d8d5a1d5c585870a3a194f4001701e66a27b8dd8cb7b75ce",
+    "size": 135125
+  },
+  {
+    "path": "sources/xpp3-1.1.4c-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/xpp3/xpp3/1.1.4c/xpp3-1.1.4c-sources.jar",
+    "sha256": "113c8174cda963aa8c9e46f59945838dbe1a094cc736e476d640453e07d9e9c6",
+    "size": 128334
+  },
+  {
+    "path": "sources/opengl-api-gl1.1-android-2.1_r1-sources.jar",
+    "url": "https://repo.maven.apache.org/maven2/org/khronos/opengl-api/gl1.1-android-2.1_r1/opengl-api-gl1.1-android-2.1_r1-sources.jar",
+    "sha256": "050b4ec89ac6a1d5fd680e354b0f89d3433ddf1af18cf7e656ffce2a3ce0d915",
+    "size": 12986
+  },
+  {
+    "path": "sources/lwjgl-3.3.6.tar.gz",
+    "url": "https://codeload.github.com/LWJGL/lwjgl3/tar.gz/refs/tags/3.3.6",
+    "sha256": "be7e38712236908aa7ff0bf84af034c241a0624a7387414c7ed3aa742a5a44b3",
+    "size": 16438665
+  },
+  {
+    "path": "sources/openal-soft-90191edd20bb877c5cbddfdac7ec0fe49ad93727.tar.gz",
+    "url": "https://codeload.github.com/kcat/openal-soft/tar.gz/90191edd20bb877c5cbddfdac7ec0fe49ad93727",
+    "sha256": "73136315f216b2a59ae975e1bbbbb359fe556f0f4cbff4b81f68a283b0554a21",
+    "size": 1207485
+  },
+  {
+    "path": "sources/OpenJDK21U-jdk-sources_21.0.12.1_1.tar.gz",
+    "url": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.12.1%2B1/OpenJDK21U-jdk-sources_21.0.12.1_1.tar.gz",
+    "sha256": "573057d03584ae793fb7ec9a14c76d826d9187a53efeefd99da47403a5308234",
+    "size": 115126841
+  }
+]

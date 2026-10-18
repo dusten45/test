@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "exit_code": 1,
+  "reason": "existing save-directory lock rejected second process"
+}

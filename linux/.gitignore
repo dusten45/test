@@ -1,0 +1,6 @@
+/build/
+/dist/
+/.cache/
+*.log
+*.trace
+!/tests/input/
