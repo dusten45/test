@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: paladog-linux-preview-1
+  group: paladog-linux-preview-2
   cancel-in-progress: false
 
 jobs:
@@ -17,8 +17,8 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      SOURCE_COMMIT: 7b80425abf4b93dacc64d6e0cc2037ff20531777
-      RELEASE_TAG: paladog-linux-preview-1
+      SOURCE_COMMIT: 22c2de1758d71b2a110401d293172a50bc045b30
+      RELEASE_TAG: paladog-linux-preview-2
     steps:
       - name: Check out the tested game and adapter source
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
