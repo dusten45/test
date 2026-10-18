@@ -4,6 +4,15 @@
 
 Java 런타임을 포함한 Linux x86-64 실행 묶음을 제공합니다. 첫 검증판으로, 기존 게임의 전체 콘텐츠와 모든 Linux 배포판을 전수 검증한 상태는 아닙니다. Windows 빌드는 이번 작업 범위에 포함하지 않습니다.
 
+## 다운로드
+
+- [Linux 실행 파일 — paladog-linux-x86_64.tar.gz](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/paladog-linux-x86_64.tar.gz)
+- [대응 소스 묶음](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/paladog-linux-x86_64-sources.tar.gz)
+- [SHA-256 목록](https://github.com/dusten45/test/releases/download/paladog-linux-preview-1/SHA256SUMS)
+- [릴리스 안내](https://github.com/dusten45/test/releases/tag/paladog-linux-preview-1)
+
+실행하려면 첫 번째 파일을 받으세요. GitHub가 자동으로 제공하는 `Source code (zip)`은 게임 실행 묶음이 아닙니다. 릴리스 파일은 검증된 게임·어댑터 커밋을 GitHub Actions에서 빌드한 결과이며, 빌드 환경 기록 때문에 이전 클라우드 압축 파일과 전체 SHA-256은 다를 수 있습니다. 다운로드한 파일은 릴리스의 `SHA256SUMS`와 비교하세요.
+
 ## 실행
 
 `paladog-linux-x86_64.tar.gz`를 풀고 해당 폴더에서 `./paladog`를 실행합니다. 별도의 Java 설치나 Android 실행환경이 필요하지 않습니다. 게임 실행 중 의존성을 다운로드하지 않습니다.
